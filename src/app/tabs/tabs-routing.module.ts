@@ -8,29 +8,38 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'tab1',
-        loadChildren: () => import('../tab1/tab1.module').then(m => m.Tab1PageModule)
+        path: 'movies',
+        loadChildren: () =>
+          import('../movieTab/movieTab.module').then(
+            (m) => m.MovieTabPageModule
+          ),
       },
       {
-        path: 'tab2',
-        loadChildren: () => import('../tab2/tab2.module').then(m => m.Tab2PageModule)
+        path: 'celebrities',
+        loadChildren: () =>
+          import('../celebrityTab/celebrityTab.module').then(
+            (m) => m.CelebrityTabPageModule
+          ),
       },
       {
-        path: 'tab3',
-        loadChildren: () => import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+        path: 'profile',
+        loadChildren: () =>
+          import('../profileTab/profileTab.module').then(
+            (m) => m.ProfileTabPageModule
+          ),
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
-        pathMatch: 'full'
-      }
-    ]
+        redirectTo: '/tabs/movies',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
-    pathMatch: 'full'
-  }
+    redirectTo: '/tabs/movies',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
