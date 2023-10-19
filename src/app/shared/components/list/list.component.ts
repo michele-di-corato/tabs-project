@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MovieList } from '../../interfaces/movies.interface';
 
 @Component({
   selector: 'app-list',
@@ -7,5 +8,9 @@ import { Component, Input } from '@angular/core';
 })
 export class ListComponent {
   @Input() list: any = [];
+  @Output() id: EventEmitter<number> = new EventEmitter<number>();
   constructor() {}
+  addId(id: number) {
+    this.id.emit(id);
+  }
 }

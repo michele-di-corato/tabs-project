@@ -10,5 +10,5 @@
       <ion-title size="large">Movies</ion-title>
     </ion-toolbar>
   </ion-header>
-  <app-list [list]="movies"></app-list>
+  <app-list [list]="movies" (id)="goToDetailPage($event)"></app-list>
 </ion-content>
