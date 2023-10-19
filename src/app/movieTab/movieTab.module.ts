@@ -6,6 +6,7 @@ import { MovieTabPage } from './movieTab.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { MovieTabPageRoutingModule } from './movieTab-routing.module';
+import { ListComponent } from '../shared/components/list/list.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { MovieTabPageRoutingModule } from './movieTab-routing.module';
     ExploreContainerComponentModule,
     MovieTabPageRoutingModule,
   ],
-  declarations: [MovieTabPage],
+  declarations: [MovieTabPage, ListComponent],
 })
 export class MovieTabPageModule {}

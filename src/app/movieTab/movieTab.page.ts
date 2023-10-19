@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MovieList } from '../shared/interfaces/movies.interface';
+import { MovieService } from '../shared/services/movies.service';
 
 @Component({
   selector: 'app-movie-tab',
@@ -6,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrls: ['movieTab.page.scss'],
 })
 export class MovieTabPage {
-  constructor() {}
+  constructor(private readonly _movieService: MovieService) {}
+  movies: MovieList[] = this._movieService.getList();
 }

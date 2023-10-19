@@ -1,0 +1,7 @@
+- Creazione di un componente padre che effettua una chiamata verso un service iniettato (delegato alla chiamata per tornare alla lista dei film)
+- Componente figlio che riceve in input la lista dei film e rappresenta la lista (avrà solo input e output)
+- Sulla lista vanno implementate 2 azioni:
+  - Click per accedere alla pagina di dettaglio
+  - Slide per scoprire due tasti per la modifica e la rimozione dell'elemento della lista
+- Componente del dettaglio che recupera l'ID del parametro e chiama il service per ricavare il film dall'array visualizzando i dettagli del film
+- Implementare un torna indietro
