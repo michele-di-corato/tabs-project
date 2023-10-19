@@ -1,0 +1,75 @@
+<ion-content class="ion-padding">
+  <h1>Welcome to your profile, {{ name }}</h1>
+
+  <ion-card>
+    <ion-avatar class="margin">
+      <img
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
+    <ion-card-header>
+      <ion-card-title>Michele Di Corato</ion-card-title>
+      <ion-card-subtitle>About me</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      Hi! I'm a new developer studying Java and Angular enrolled in an academy
+      sponsored by Sidea Group.
+    </ion-card-content>
+    <ion-accordion-group [multiple]="true">
+      <ion-accordion value="first" toggleIcon="caret-down-circle">
+        <ion-item slot="header" color="tertiary">
+          <ion-label>My studies</ion-label>
+        </ion-item>
+        <div class="ion-padding acc-bg" slot="content">
+          <ul>
+            <li>Scientific High-school Diploma</li>
+            <li>Web developing masterclass by Aulab</li>
+          </ul>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="second" toggleIcon="caret-down-circle">
+        <ion-item slot="header" color="light">
+          <ion-label>Spoken Languages</ion-label>
+        </ion-item>
+        <div class="ion-padding acc-bg" slot="content">
+          <ul>
+            <li>Italiano</li>
+            <li>English [B2-C1]</li>
+            <li>Français [B1]</li>
+          </ul>
+        </div>
+      </ion-accordion>
+      <ion-accordion value="third" toggleIcon="caret-down-circle">
+        <ion-item slot="header" color="danger">
+          <ion-label>Hobbies & Passions</ion-label>
+        </ion-item>
+        <div class="ion-padding acc-bg" slot="content">
+          <ul>
+            <li>Competitive Videogaming</li>
+            <li>Chess</li>
+            <li>Competitive & Extreme sports</li>
+          </ul>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Info & Contacts</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Birth Date: 21/12/1998 - Age: 24</p>
+      <p>Residence: Bari</p>
+      <p>Email: michele.di.corato@example.com</p>
+      <p>Phone number: +39 xxxxxxxxxx</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab slot="fixed" horizontal="end" vertical="bottom">
+    <ion-fab-button color="dark">
+      <ion-icon name="chevron-up"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

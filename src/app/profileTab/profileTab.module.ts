@@ -6,6 +6,7 @@ import { ProfileTabPage } from './profileTab.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { ProfileTabPageRoutingModule } from './profileTab-routing.module';
+import { DetailsPage } from './components/details.page';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import { ProfileTabPageRoutingModule } from './profileTab-routing.module';
     ExploreContainerComponentModule,
     ProfileTabPageRoutingModule,
   ],
-  declarations: [ProfileTabPage],
+  declarations: [ProfileTabPage, DetailsPage],
 })
 export class ProfileTabPageModule {}
