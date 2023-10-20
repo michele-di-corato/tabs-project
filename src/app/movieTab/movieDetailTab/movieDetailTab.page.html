@@ -9,19 +9,28 @@
           name="film-outline"
         ></ion-icon>
       </ion-breadcrumb>
-      <ion-breadcrumb href="#details">{{movie.title}}</ion-breadcrumb>
+      <ion-breadcrumb *ngIf="movie" href="#details">
+        {{movie.title}}
+      </ion-breadcrumb>
+      <ion-breadcrumb *ngIf="!movie" href="#details">Film</ion-breadcrumb>
     </ion-breadcrumbs>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf="movie">
   <ion-card>
     <ion-card-header>
-      <ion-card-title></ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{ movie.title }}</ion-card-title>
+      <ion-card-subtitle>{{ movie.releaseYear }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more,
-      nothing less.
+      <p><strong>Regista: </strong> {{ movie.director }}</p>
+      <p><strong>Generi: </strong> {{ movie.genres }}</p>
+      <p><strong>Voto: </strong> {{ movie.rating }}</p>
     </ion-card-content>
+  </ion-card>
+</ion-content>
+<ion-content *ngIf="!movie">
+  <ion-card>
+    <ion-card-title>Il film non è disponibile</ion-card-title>
   </ion-card>
 </ion-content>

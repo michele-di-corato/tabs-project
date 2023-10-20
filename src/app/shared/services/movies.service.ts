@@ -123,8 +123,8 @@ export class MovieService {
   getList(): MovieList[] {
     return this.movies;
   }
-  getMovieById(id: number): MovieList[] {
-    let movie: MovieList[] = this.movies.filter((m: MovieList) => m.id == id);
+  getMovieById(id: number): MovieList | undefined {
+    let movie = this.movies.find((m) => m.id == id);
     return movie;
   }
 }
