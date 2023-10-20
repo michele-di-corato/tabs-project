@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { MovieList } from '../../interfaces/movies.interface';
+import { ItemList } from '../../interfaces/list.interface';
 
 @Component({
   selector: 'app-list',
@@ -7,14 +7,14 @@ import { MovieList } from '../../interfaces/movies.interface';
   styleUrls: ['list.component.scss'],
 })
 export class ListComponent {
-  @Input() list: any = [];
-  @Output() id: EventEmitter<number> = new EventEmitter<number>();
-  @Output() idToEdit: EventEmitter<number> = new EventEmitter<number>();
+  @Input() list: ItemList[] = [];
+  @Output() idToSelect: EventEmitter<string> = new EventEmitter<string>();
+  @Output() idToEdit: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
-  addId(id: number) {
-    this.id.emit(id);
+  selectById(id: string) {
+    this.idToSelect.emit(id);
   }
-  editId(id: number) {
+  editById(id: string) {
     this.idToEdit.emit(id);
   }
 }

@@ -1,11 +1,10 @@
 <ion-list>
   <ion-item-sliding *ngFor="let element of list">
-    <ion-item button (click)="addId(element.id)">
-      <ion-label>{{ element.title }} - {{ element.releaseYear }}</ion-label>
+    <ion-item button (click)="selectById(element.id)">
+      <ion-label>{{ element.name }}</ion-label>
     </ion-item>
-
     <ion-item-options>
-      <ion-item-option color="primary" button (click)="editId(element.id)">
+      <ion-item-option color="primary" button (click)="editById(element.id)">
         <ion-icon class="i-margin" name="create-outline"></ion-icon>
       </ion-item-option>
       <ion-item-option color="danger">

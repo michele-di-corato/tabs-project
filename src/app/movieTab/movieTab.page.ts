@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ItemList } from '../shared/interfaces/list.interface';
 
 @Component({
   selector: 'app-movie-tab',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['movieTab.page.scss'],
 })
 export class MovieTabPage {
-  movies: MovieList[] = [];
+  movies: ItemList[] = [];
   constructor(
     private readonly _movieService: MovieService,
     private readonly _router: Router,
@@ -19,12 +20,17 @@ export class MovieTabPage {
     this._getMovieList();
   }
   private _getMovieList() {
-    this.movies = this._movieService.getList();
+    this.movies = this._movieService.getList().map((element: MovieList) => {
+      return {
+        id: element.id,
+        name: element.title,
+      };
+    });
   }
-  goToDetailPage(id: number): void {
+  goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
   }
-  goToEditPage(id: number): void {
+  goToEditPage(id: string): void {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
 }

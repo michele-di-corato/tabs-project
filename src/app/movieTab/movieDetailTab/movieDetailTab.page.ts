@@ -16,6 +16,6 @@ export class MovieDetailTabPage implements OnInit {
   ) {}
   ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
-    this.movie = this._movieService.getMovieById(Number(id));
+    this.movie = this._movieService.getMovieById(String(id));
   }
 }

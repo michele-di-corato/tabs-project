@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 export class MovieService {
   movies: MovieList[] = [
     {
-      id: 1,
+      id: '1',
       title: 'Il Padrino',
       director: 'Francis Ford Coppola',
       releaseYear: 1972,
@@ -16,7 +16,7 @@ export class MovieService {
       rating: 9.2,
     },
     {
-      id: 2,
+      id: '2',
       title: "Schindler's List",
       director: 'Steven Spielberg',
       releaseYear: 1993,
@@ -24,7 +24,7 @@ export class MovieService {
       rating: 8.9,
     },
     {
-      id: 3,
+      id: '3',
       title: 'Pulp Fiction',
       director: 'Quentin Tarantino',
       releaseYear: 1994,
@@ -32,7 +32,7 @@ export class MovieService {
       rating: 8.9,
     },
     {
-      id: 4,
+      id: '4',
       title: "Il Signore degli Anelli: La Compagnia dell'Anello",
       director: 'Peter Jackson',
       releaseYear: 2001,
@@ -40,7 +40,7 @@ export class MovieService {
       rating: 8.8,
     },
     {
-      id: 5,
+      id: '5',
       title: 'Inception',
       director: 'Christopher Nolan',
       releaseYear: 2010,
@@ -48,7 +48,7 @@ export class MovieService {
       rating: 8.8,
     },
     {
-      id: 6,
+      id: '6',
       title: 'Forrest Gump',
       director: 'Robert Zemeckis',
       releaseYear: 1994,
@@ -56,7 +56,7 @@ export class MovieService {
       rating: 8.8,
     },
     {
-      id: 7,
+      id: '7',
       title: 'Matrix',
       director: 'Lana Wachowski, Lilly Wachowski',
       releaseYear: 1999,
@@ -64,7 +64,7 @@ export class MovieService {
       rating: 8.7,
     },
     {
-      id: 8,
+      id: '8',
       title: 'Interstellar',
       director: 'Christopher Nolan',
       releaseYear: 2014,
@@ -72,7 +72,7 @@ export class MovieService {
       rating: 8.6,
     },
     {
-      id: 9,
+      id: '9',
       title: 'Il Signore degli Anelli: Il Ritorno del Re',
       director: 'Peter Jackson',
       releaseYear: 2003,
@@ -80,7 +80,7 @@ export class MovieService {
       rating: 8.9,
     },
     {
-      id: 10,
+      id: '10',
       title: 'The Dark Knight',
       director: 'Christopher Nolan',
       releaseYear: 2008,
@@ -88,7 +88,7 @@ export class MovieService {
       rating: 9.0,
     },
     {
-      id: 11,
+      id: '11',
       title: 'Fight Club',
       director: 'David Fincher',
       releaseYear: 1999,
@@ -96,7 +96,7 @@ export class MovieService {
       rating: 8.8,
     },
     {
-      id: 12,
+      id: '12',
       title: 'Léon: The Professional',
       director: 'Luc Besson',
       releaseYear: 1994,
@@ -104,7 +104,7 @@ export class MovieService {
       rating: 8.5,
     },
     {
-      id: 13,
+      id: '13',
       title: 'The Shawshank Redemption',
       director: 'Frank Darabont',
       releaseYear: 1994,
@@ -112,7 +112,7 @@ export class MovieService {
       rating: 9.3,
     },
     {
-      id: 14,
+      id: '14',
       title: 'The Godfather: Part II',
       director: 'Francis Ford Coppola',
       releaseYear: 1974,
@@ -124,7 +124,7 @@ export class MovieService {
   getList(): MovieList[] {
     return this.movies;
   }
-  getMovieById(id: number): MovieList | undefined {
+  getMovieById(id: string): MovieList | undefined {
     let movie = this.movies.find((m) => m.id == id);
     return movie;
   }

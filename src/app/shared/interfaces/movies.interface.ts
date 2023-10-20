@@ -1,5 +1,5 @@
 export interface MovieList {
-  id: number;
+  id: string;
   title: string;
   director: string;
   releaseYear: number;

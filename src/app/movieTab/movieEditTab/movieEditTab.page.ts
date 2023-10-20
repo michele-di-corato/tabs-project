@@ -19,7 +19,7 @@ export class MovieEditTabPage {
     private readonly _location: Location
   ) {
     const id = this._route.snapshot.params['id'];
-    this.movie = this._movieService.getMovieById(Number(id));
+    this.movie = this._movieService.getMovieById(String(id));
     this._setForm();
   }
 
