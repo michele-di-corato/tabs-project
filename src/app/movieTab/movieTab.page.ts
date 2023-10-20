@@ -9,12 +9,18 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['movieTab.page.scss'],
 })
 export class MovieTabPage {
+  movies: MovieList[] = [];
   constructor(
     private readonly _movieService: MovieService,
     private readonly _router: Router,
     private readonly _route: ActivatedRoute
   ) {}
-  movies: MovieList[] = this._movieService.getList();
+  ionViewWillEnter() {
+    this._getMovieList();
+  }
+  private _getMovieList() {
+    this.movies = this._movieService.getList();
+  }
   goToDetailPage(id: number): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
   }
