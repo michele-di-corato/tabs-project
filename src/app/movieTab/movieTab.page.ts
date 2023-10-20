@@ -18,4 +18,7 @@ export class MovieTabPage {
   goToDetailPage(id: number): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
   }
+  goToEditPage(id: number): void {
+    this._router.navigate(['edit', id], { relativeTo: this._route });
+  }
 }

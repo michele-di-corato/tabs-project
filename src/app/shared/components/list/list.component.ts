@@ -9,8 +9,12 @@ import { MovieList } from '../../interfaces/movies.interface';
 export class ListComponent {
   @Input() list: any = [];
   @Output() id: EventEmitter<number> = new EventEmitter<number>();
+  @Output() idToEdit: EventEmitter<number> = new EventEmitter<number>();
   constructor() {}
   addId(id: number) {
     this.id.emit(id);
+  }
+  editId(id: number) {
+    this.idToEdit.emit(id);
   }
 }

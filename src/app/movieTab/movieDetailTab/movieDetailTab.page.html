@@ -9,10 +9,9 @@
           name="film-outline"
         ></ion-icon>
       </ion-breadcrumb>
-      <ion-breadcrumb *ngIf="movie" href="#details">
-        {{movie.title}}
-      </ion-breadcrumb>
-      <ion-breadcrumb *ngIf="!movie" href="#details">Film</ion-breadcrumb>
+      <ion-breadcrumb> Details </ion-breadcrumb>
+      <ion-breadcrumb *ngIf="movie"> {{movie.title}} </ion-breadcrumb>
+      <ion-breadcrumb *ngIf="!movie">Film</ion-breadcrumb>
     </ion-breadcrumbs>
   </ion-toolbar>
 </ion-header>

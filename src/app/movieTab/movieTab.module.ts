@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { MovieTabPageRoutingModule } from './movieTab-routing.module';
 import { ListComponent } from '../shared/components/list/list.component';
 import { MovieDetailTabPage } from './movieDetailTab/movieDetailTab.page';
+import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
 
 @NgModule({
   imports: [
@@ -17,6 +18,11 @@ import { MovieDetailTabPage } from './movieDetailTab/movieDetailTab.page';
     ExploreContainerComponentModule,
     MovieTabPageRoutingModule,
   ],
-  declarations: [MovieTabPage, ListComponent, MovieDetailTabPage],
+  declarations: [
+    MovieTabPage,
+    ListComponent,
+    MovieDetailTabPage,
+    MovieEditTabPage,
+  ],
 })
 export class MovieTabPageModule {}
