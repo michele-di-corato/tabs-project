@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-breadcrumbs>
       <ion-breadcrumb href="#movies">
         Movies
@@ -9,7 +12,6 @@
           name="film-outline"
         ></ion-icon>
       </ion-breadcrumb>
-      <ion-breadcrumb> Edit </ion-breadcrumb>
       <ion-breadcrumb *ngIf="movie"> {{movie.title}} </ion-breadcrumb>
       <ion-breadcrumb *ngIf="!movie">Film</ion-breadcrumb>
     </ion-breadcrumbs>
@@ -17,36 +19,60 @@
 </ion-header>
 <ion-content>
   <ion-card>
-    <form *ngIf="formUser" [formGroup]="formUser" (ngSubmit)="submitForm()">
+    <form *ngIf="formMovie" [formGroup]="formMovie" (ngSubmit)="submitForm()">
       <ion-list>
         <ion-item>
-          <ion-label position="floating">Titolo:</ion-label>
-          <ion-input formControlName="title" type="text"></ion-input>
+          <ion-input
+            label="Titolo:"
+            labelPlacement="stacked"
+            formControlName="title"
+            type="text"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Regista:</ion-label>
-          <ion-input formControlName="director" type="text"></ion-input>
+          <ion-input
+            label="Regista:"
+            labelPlacement="stacked"
+            formControlName="director"
+            type="text"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Anno di rilascio:</ion-label>
-          <ion-input formControlName="releaseYear" type="number"></ion-input>
+          <ion-input
+            label="Anno di rilascio:"
+            labelPlacement="stacked"
+            formControlName="releaseYear"
+            type="number"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Riassunto:</ion-label>
-          <ion-input formControlName="description" type="text"></ion-input>
+          <ion-input
+            label="Riassunto:"
+            labelPlacement="stacked"
+            formControlName="description"
+            type="text"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Generi:</ion-label>
-          <ion-input formControlName="genres" type="text"></ion-input>
+          <ion-input
+            label="Generi:"
+            labelPlacement="stacked"
+            formControlName="genres"
+            type="text"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Voto:</ion-label>
-          <ion-input formControlName="number" type="text"></ion-input>
+          <ion-input
+            label="Voto:"
+            labelPlacement="stacked"
+            formControlName="rating"
+            type="number"
+          ></ion-input>
         </ion-item>
       </ion-list>
       <ion-row>
         <ion-col offset="3">
-          <ion-button type="submit" [disabled]="!formUser.valid">
+          <ion-button type="submit" [disabled]="!formMovie.valid">
             Salva modifiche
           </ion-button>
         </ion-col>

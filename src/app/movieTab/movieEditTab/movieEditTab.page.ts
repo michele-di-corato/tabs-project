@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
 })
 export class MovieEditTabPage {
   movie: MovieList | undefined;
-  formUser: FormGroup | undefined;
+  formMovie: FormGroup | undefined;
   constructor(
     private readonly _movieService: MovieService,
     private readonly _route: ActivatedRoute,
@@ -24,7 +24,7 @@ export class MovieEditTabPage {
   }
 
   private _setForm() {
-    this.formUser = new FormGroup({
+    this.formMovie = new FormGroup({
       id: new FormControl(this.movie?.id),
       title: new FormControl(this.movie?.title, Validators.minLength(5)),
       director: new FormControl(this.movie?.director, Validators.minLength(5)),
@@ -41,9 +41,9 @@ export class MovieEditTabPage {
   }
 
   submitForm() {
-    if (this.formUser?.valid) {
-      //this._movieService.update(this.formUser?.value).subscribe(() => )
-      this._location.back();
+    if (this.formMovie?.valid) {
+      this._movieService.updateMovie(this.formMovie?.value);
     }
+    this._location.back();
   }
 }

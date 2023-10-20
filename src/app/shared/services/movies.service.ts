@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MovieList } from '../interfaces/movies.interface';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -126,5 +127,13 @@ export class MovieService {
   getMovieById(id: number): MovieList | undefined {
     let movie = this.movies.find((m) => m.id == id);
     return movie;
+  }
+  updateMovie(editedMovie: MovieList): void {
+    const i = this.movies.findIndex(
+      (movie: MovieList) => movie.id === editedMovie.id
+    );
+    if (i !== -1) {
+      this.movies[i] = editedMovie;
+    }
   }
 }

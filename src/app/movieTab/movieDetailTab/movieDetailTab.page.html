@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-breadcrumbs>
       <ion-breadcrumb href="#movies">
         Movies
@@ -9,7 +12,6 @@
           name="film-outline"
         ></ion-icon>
       </ion-breadcrumb>
-      <ion-breadcrumb> Details </ion-breadcrumb>
       <ion-breadcrumb *ngIf="movie"> {{movie.title}} </ion-breadcrumb>
       <ion-breadcrumb *ngIf="!movie">Film</ion-breadcrumb>
     </ion-breadcrumbs>
