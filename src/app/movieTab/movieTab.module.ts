@@ -6,9 +6,9 @@ import { MovieTabPage } from './movieTab.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { MovieTabPageRoutingModule } from './movieTab-routing.module';
-import { ListComponent } from '../shared/components/list/list.component';
 import { MovieDetailTabPage } from './movieDetailTab/movieDetailTab.page';
 import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
+import { ListComponentModule } from '../shared/components/list/list.module';
 @NgModule({
   imports: [
     IonicModule,
@@ -17,12 +17,8 @@ import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
     ReactiveFormsModule,
     ExploreContainerComponentModule,
     MovieTabPageRoutingModule,
+    ListComponentModule,
   ],
-  declarations: [
-    MovieTabPage,
-    ListComponent,
-    MovieDetailTabPage,
-    MovieEditTabPage,
-  ],
+  declarations: [MovieTabPage, MovieDetailTabPage, MovieEditTabPage],
 })
 export class MovieTabPageModule {}
