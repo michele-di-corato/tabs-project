@@ -15,3 +15,42 @@
     </ion-breadcrumbs>
   </ion-toolbar>
 </ion-header>
+<ion-content>
+  <ion-card>
+    <form *ngIf="formUser" [formGroup]="formUser" (ngSubmit)="submitForm()">
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Titolo:</ion-label>
+          <ion-input formControlName="title" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Regista:</ion-label>
+          <ion-input formControlName="director" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Anno di rilascio:</ion-label>
+          <ion-input formControlName="releaseYear" type="number"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Riassunto:</ion-label>
+          <ion-input formControlName="description" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Generi:</ion-label>
+          <ion-input formControlName="genres" type="text"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Voto:</ion-label>
+          <ion-input formControlName="number" type="text"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col offset="3">
+          <ion-button type="submit" [disabled]="!formUser.valid">
+            Salva modifiche
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-card>
+</ion-content>
