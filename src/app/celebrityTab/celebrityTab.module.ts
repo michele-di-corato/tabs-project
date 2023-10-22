@@ -8,6 +8,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 import { CelebrityTabPageRoutingModule } from './celebrityTab-routing.module';
 import { ListComponent } from '../shared/components/list/list.component';
 import { ListComponentModule } from '../shared/components/list/list.module';
+import { CelebrityDetailTabPage } from './celebrityDetailTab/celebrityDetailTab.page';
 
 @NgModule({
   imports: [
@@ -18,6 +19,6 @@ import { ListComponentModule } from '../shared/components/list/list.module';
     CelebrityTabPageRoutingModule,
     ListComponentModule,
   ],
-  declarations: [CelebrityTabPage],
+  declarations: [CelebrityTabPage, CelebrityDetailTabPage],
 })
 export class CelebrityTabPageModule {}

@@ -1,6 +1,15 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Celebrities</ion-title>
+    <ion-breadcrumbs>
+      <ion-breadcrumb href="#celebrities">
+        Celebrities
+        <ion-icon
+          class="icon"
+          aria-hidden="true"
+          name="people-circle-outline"
+        ></ion-icon>
+      </ion-breadcrumb>
+    </ion-breadcrumbs>
   </ion-toolbar>
 </ion-header>
 
@@ -10,6 +19,9 @@
       <ion-title size="large">Celebrities</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <app-explore-container name="Celebrities Tab"></app-explore-container>
+  <app-list
+    [list]="celebrities"
+    (idToSelect)="goToDetailPage($event)"
+    (idToEdit)="goToEditPage($event)"
+  ></app-list>
 </ion-content>
