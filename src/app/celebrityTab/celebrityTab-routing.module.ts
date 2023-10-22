@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CelebrityTabPage } from './celebrityTab.page';
 import { CelebrityDetailTabPage } from './celebrityDetailTab/celebrityDetailTab.page';
+import { CelebrityEditTabPage } from './celebrityEditTab/celebrityEditTab.page';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'details/:id',
     component: CelebrityDetailTabPage,
+  },
+  {
+    path: 'edit/:id',
+    component: CelebrityEditTabPage,
   },
 ];
 

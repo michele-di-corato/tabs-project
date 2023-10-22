@@ -1,0 +1,44 @@
+import { Component } from '@angular/core';
+import { CelebrityService } from 'src/app/shared/services/celebrities.service';
+import { CelebrityList } from 'src/app/shared/interfaces/celebrities.interface';
+import { ActivatedRoute } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+
+@Component({
+  selector: 'app-celebrity-edit',
+  templateUrl: 'celebrityEditTab.page.html',
+  styleUrls: ['celebrityEditTab.page.scss'],
+})
+export class CelebrityEditTabPage {
+  celebrity: CelebrityList | undefined;
+  formCelebrity: FormGroup | undefined;
+  constructor(
+    private readonly _celebrityService: CelebrityService,
+    private readonly _route: ActivatedRoute,
+    private readonly _location: Location
+  ) {
+    const id = this._route.snapshot.params['id'];
+    this.celebrity = this._celebrityService.getCelebrityById(String(id));
+    this._setForm();
+  }
+  private _setForm() {
+    this.formCelebrity = new FormGroup({
+      id: new FormControl(this.celebrity?.id),
+      primaryName: new FormControl(
+        this.celebrity?.primaryName,
+        Validators.minLength(5)
+      ),
+      birthYear: new FormControl(this.celebrity?.birthYear),
+      deathYear: new FormControl(this.celebrity?.deathYear),
+      nationality: new FormControl(this.celebrity?.nationality),
+    });
+  }
+
+  submitForm() {
+    if (this.formCelebrity?.valid) {
+      this._celebrityService.updateCelebrity(this.formCelebrity?.value);
+    }
+    this._location.back();
+  }
+}
