@@ -20,14 +20,17 @@ export class CelebrityTabPage {
     this._getCelebrityList();
   }
   private _getCelebrityList() {
-    this.celebrities = this._celebrityService
-      .getList()
-      .map((element: CelebrityList) => {
-        return {
-          id: element.id,
-          name: element.primaryName,
-        };
-      });
+    this._celebrityService.celebrityOb$.subscribe(
+      (celebrityList: CelebrityList[]) => {
+        this.celebrities = celebrityList.map((element: CelebrityList) => {
+          return {
+            id: element.id,
+            name: element.primaryName,
+          };
+        });
+      }
+    );
+    this._celebrityService.getList();
   }
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });

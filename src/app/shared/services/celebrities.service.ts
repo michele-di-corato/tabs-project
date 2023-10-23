@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { CelebrityList } from '../interfaces/celebrities.interface';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CelebrityService {
-  celebrities: CelebrityList[] = [
+  private _celebrities: CelebrityList[] = [
     {
       id: '1',
       primaryName: 'Marlon Brando',
@@ -82,19 +83,22 @@ export class CelebrityService {
       birthYear: 1943,
     },
   ];
-  getList(): CelebrityList[] {
-    return this.celebrities;
+  private _celebrity$ = new Subject<CelebrityList[]>();
+  celebrityOb$ = this._celebrity$.asObservable();
+  getList(): void {
+    this._celebrity$.next(this._celebrities);
   }
   getCelebrityById(id: string): CelebrityList | undefined {
-    let celebrity = this.celebrities.find((m) => m.id == id);
+    let celebrity = this._celebrities.find((m) => m.id == id);
     return celebrity;
   }
   updateCelebrity(editedCelebrity: CelebrityList): void {
-    const i = this.celebrities.findIndex(
+    const i = this._celebrities.findIndex(
       (celebrity: CelebrityList) => celebrity.id === editedCelebrity.id
     );
     if (i !== -1) {
-      this.celebrities[i] = editedCelebrity;
+      this._celebrities[i] = editedCelebrity;
     }
+    this._celebrity$.next(this._celebrities);
   }
 }

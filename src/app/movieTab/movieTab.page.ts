@@ -15,17 +15,19 @@ export class MovieTabPage {
     private readonly _movieService: MovieService,
     private readonly _router: Router,
     private readonly _route: ActivatedRoute
-  ) {}
-  ionViewWillEnter() {
+  ) {
     this._getMovieList();
   }
   private _getMovieList() {
-    this.movies = this._movieService.getList().map((element: MovieList) => {
-      return {
-        id: element.id,
-        name: element.title,
-      };
+    this._movieService.movieOb$.subscribe((movieList: MovieList[]) => {
+      this.movies = movieList.map((element: MovieList) => {
+        return {
+          id: element.id,
+          name: element.title,
+        };
+      });
     });
+    this._movieService.getList();
   }
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
