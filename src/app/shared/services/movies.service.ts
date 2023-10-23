@@ -9,7 +9,7 @@ export class MovieService {
   private _movies: MovieList[] = [
     {
       id: '1',
-      title: 'Il Padrino',
+      title: 'The Godfather',
       director: 'Francis Ford Coppola',
       releaseYear: 1972,
       genres: 'Crime, Drama',
