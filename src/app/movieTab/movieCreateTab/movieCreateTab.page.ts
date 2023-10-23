@@ -30,7 +30,6 @@ export class MovieCreateTabPage {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          Validators.pattern('[a-zA-Z ]*'),
         ])
       ),
       director: new FormControl(
@@ -39,7 +38,6 @@ export class MovieCreateTabPage {
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-          Validators.pattern('[a-zA-Z ]*'),
         ])
       ),
       releaseYear: new FormControl(
@@ -61,10 +59,7 @@ export class MovieCreateTabPage {
       description: new FormControl(
         this.movie?.description,
 
-        Validators.compose([
-          Validators.maxLength(1000),
-          Validators.pattern('[a-zA-Z ]*'),
-        ])
+        Validators.compose([Validators.maxLength(1000)])
       ),
       genres: new FormControl(this.movie?.genres),
       celebrities: new FormControl(this.movie?.celebrities),
