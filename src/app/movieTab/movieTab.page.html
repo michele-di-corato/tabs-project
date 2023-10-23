@@ -23,5 +23,6 @@
     [list]="movies"
     (idToSelect)="goToDetailPage($event)"
     (idToEdit)="goToEditPage($event)"
+    (idToDelete)="deleteMovie($event)"
   ></app-list>
 </ion-content>

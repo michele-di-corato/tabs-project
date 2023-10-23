@@ -138,4 +138,11 @@ export class MovieService {
     }
     this._movie$.next(this._movies);
   }
+  deleteMovie(id: string): void {
+    const i = this._movies.findIndex((movie: MovieList) => movie.id == id);
+    if (i !== -1) {
+      this._movies.splice(i, 1);
+    }
+    this._movie$.next(this._movies);
+  }
 }

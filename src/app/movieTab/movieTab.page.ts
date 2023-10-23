@@ -35,4 +35,7 @@ export class MovieTabPage {
   goToEditPage(id: string): void {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
+  deleteMovie(id: string): void {
+    this._movieService.deleteMovie(id);
+  }
 }

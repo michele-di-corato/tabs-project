@@ -101,4 +101,13 @@ export class CelebrityService {
     }
     this._celebrity$.next(this._celebrities);
   }
+  deleteCelebrity(id: string): void {
+    const i = this._celebrities.findIndex(
+      (movie: CelebrityList) => movie.id == id
+    );
+    if (i !== -1) {
+      this._celebrities.splice(i, 1);
+    }
+    this._celebrity$.next(this._celebrities);
+  }
 }

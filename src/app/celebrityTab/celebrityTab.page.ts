@@ -38,4 +38,7 @@ export class CelebrityTabPage {
   goToEditPage(id: string): void {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
+  deleteCelebrity(id: string): void {
+    this._celebrityService.deleteCelebrity(id);
+  }
 }
