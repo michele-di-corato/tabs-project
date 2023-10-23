@@ -134,7 +134,7 @@ export class MovieService {
       rating: 9.0,
     },
   ];
-
+  private _numId = this._movies.length;
   private _movie$ = new Subject<MovieList[]>();
   movieOb$ = this._movie$.asObservable();
   getList(): void {
@@ -161,7 +161,8 @@ export class MovieService {
     this._movie$.next(this._movies);
   }
   addMovie(createdMovie: MovieList): void {
-    createdMovie.id = (this._movies.length + 1).toString();
+    this._numId += 1;
+    createdMovie.id = this._numId.toString();
     this._movies.push(createdMovie);
     this._movie$.next(this._movies);
   }
