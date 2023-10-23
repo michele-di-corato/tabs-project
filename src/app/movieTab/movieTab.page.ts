@@ -38,4 +38,7 @@ export class MovieTabPage {
   deleteMovie(id: string): void {
     this._movieService.deleteMovie(id);
   }
+  goToAddPage(): void {
+    this._router.navigate(['create'], { relativeTo: this._route });
+  }
 }

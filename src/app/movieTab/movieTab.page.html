@@ -1,5 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToAddPage()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-breadcrumbs>
       <ion-breadcrumb href="#movies">
         Movies

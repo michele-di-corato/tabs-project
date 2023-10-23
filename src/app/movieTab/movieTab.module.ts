@@ -9,6 +9,7 @@ import { MovieTabPageRoutingModule } from './movieTab-routing.module';
 import { MovieDetailTabPage } from './movieDetailTab/movieDetailTab.page';
 import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
 import { ListComponentModule } from '../shared/components/list/list.module';
+import { MovieCreateTabPage } from './movieCreateTab/movieCreateTab.page';
 @NgModule({
   imports: [
     IonicModule,
@@ -19,6 +20,11 @@ import { ListComponentModule } from '../shared/components/list/list.module';
     MovieTabPageRoutingModule,
     ListComponentModule,
   ],
-  declarations: [MovieTabPage, MovieDetailTabPage, MovieEditTabPage],
+  declarations: [
+    MovieTabPage,
+    MovieDetailTabPage,
+    MovieEditTabPage,
+    MovieCreateTabPage,
+  ],
 })
 export class MovieTabPageModule {}

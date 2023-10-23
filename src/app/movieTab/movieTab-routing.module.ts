@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MovieTabPage } from './movieTab.page';
 import { MovieDetailTabPage } from './movieDetailTab/movieDetailTab.page';
 import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
+import { MovieCreateTabPage } from './movieCreateTab/movieCreateTab.page';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: MovieEditTabPage,
+  },
+  {
+    path: 'create',
+    component: MovieCreateTabPage,
   },
 ];
 

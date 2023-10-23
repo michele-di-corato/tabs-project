@@ -3,6 +3,7 @@ export interface MovieList {
   title: string;
   director: string;
   releaseYear: number;
+  runtimeMinutes: number;
   description?: string;
   genres?: string;
   celebrities?: string;

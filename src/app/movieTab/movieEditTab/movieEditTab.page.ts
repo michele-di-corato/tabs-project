@@ -30,6 +30,7 @@ export class MovieEditTabPage {
       title: new FormControl(this.movie?.title, Validators.minLength(5)),
       director: new FormControl(this.movie?.director, Validators.minLength(5)),
       releaseYear: new FormControl(this.movie?.releaseYear),
+      runtimeMinutes: new FormControl(this.movie?.runtimeMinutes),
       description: new FormControl(
         this.movie?.description,
         Validators.maxLength(1000)
