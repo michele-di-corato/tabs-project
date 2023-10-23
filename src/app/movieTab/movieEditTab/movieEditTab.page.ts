@@ -4,6 +4,7 @@ import { MovieList } from 'src/app/shared/interfaces/movies.interface';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-movie-edit',
@@ -43,7 +44,10 @@ export class MovieEditTabPage {
   submitForm() {
     if (this.formMovie?.valid) {
       this._movieService.updateMovie(this.formMovie?.value);
+      this.formMovie?.valueChanges.subscribe((x: FormGroup) => {
+        console.log(x);
+      });
+      this._location.back();
     }
-    this._location.back();
   }
 }
