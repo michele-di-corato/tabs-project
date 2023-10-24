@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CelebrityTabPage } from './celebrityTab.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { CelebrityTabPageRoutingModule } from './celebrityTab-routing.module';
 import { ListComponent } from '../shared/components/list/list.component';
@@ -17,7 +16,6 @@ import { CelebrityEditTabPage } from './celebrityEditTab/celebrityEditTab.page';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ExploreContainerComponentModule,
     CelebrityTabPageRoutingModule,
     ListComponentModule,
   ],
