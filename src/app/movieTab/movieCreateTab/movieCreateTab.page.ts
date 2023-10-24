@@ -16,7 +16,6 @@ export class MovieCreateTabPage {
   formMovie: FormGroup | undefined;
   constructor(
     private readonly _movieService: MovieService,
-    private readonly _route: ActivatedRoute,
     private readonly _location: Location
   ) {
     this._setForm();
@@ -34,15 +33,15 @@ export class MovieCreateTabPage {
         ])
       ),
       start_year: new FormControl(
-        this.movie?.start_year,
+        this.movie?.year,
         Validators.compose([
           Validators.required,
           Validators.max(2024),
           Validators.min(1900),
         ])
       ),
-      runtimeMinutes: new FormControl(
-        this.movie?.runtime_minutes,
+      runtime_minutes: new FormControl(
+        this.movie?.runningTime,
         Validators.compose([
           Validators.required,
           Validators.min(0),

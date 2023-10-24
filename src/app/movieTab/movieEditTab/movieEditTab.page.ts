@@ -21,17 +21,20 @@ export class MovieEditTabPage {
     private readonly _location: Location
   ) {
     const id = this._route.snapshot.params['id'];
-    this.movie = this._movieService.getMovieById(String(id));
-    this._setForm();
+    this._movieService
+      .getMovieById(String(id))
+      .subscribe((movie: MovieList) => {
+        this.movie = movie;
+        this._setForm();
+      });
   }
 
   private _setForm() {
     this.formMovie = new FormGroup({
       id: new FormControl(this.movie?.id),
       title: new FormControl(this.movie?.title, Validators.minLength(5)),
-      releaseYear: new FormControl(this.movie?.start_year),
-      runtimeMinutes: new FormControl(this.movie?.runtime_minutes),
-
+      year: new FormControl(this.movie?.year),
+      runningTime: new FormControl(this.movie?.runningTime),
       genres: new FormControl(this.movie?.genres),
     });
   }

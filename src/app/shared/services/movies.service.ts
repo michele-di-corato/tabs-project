@@ -25,9 +25,10 @@ export class MovieService {
     );
     // this._movie$.next(this._movies);
   }
-  getMovieById(id: string): MovieList | undefined {
-    let movie = this._movies.find((m) => m.id == id);
-    return movie;
+  getMovieById(id: string): Observable<MovieList> {
+    return this._http.get<MovieList>(`${this._baseUrl}/movies/${id}`);
+    // let movie = this._movies.find((m) => m.id == id);
+    // return movie;
   }
   updateMovie(editedMovie: MovieList): void {
     const i = this._movies.findIndex(
