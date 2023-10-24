@@ -33,16 +33,8 @@ export class MovieCreateTabPage {
           Validators.maxLength(100),
         ])
       ),
-      director: new FormControl(
-        this.movie?.director,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(100),
-        ])
-      ),
-      releaseYear: new FormControl(
-        this.movie?.releaseYear,
+      start_year: new FormControl(
+        this.movie?.start_year,
         Validators.compose([
           Validators.required,
           Validators.max(2024),
@@ -50,22 +42,15 @@ export class MovieCreateTabPage {
         ])
       ),
       runtimeMinutes: new FormControl(
-        this.movie?.runtimeMinutes,
+        this.movie?.runtime_minutes,
         Validators.compose([
           Validators.required,
           Validators.min(0),
           Validators.max(900),
         ])
       ),
-      description: new FormControl(
-        this.movie?.description,
 
-        Validators.compose([Validators.maxLength(1000)])
-      ),
       genres: new FormControl(this.movie?.genres),
-      celebrities: new FormControl(this.movie?.celebrities),
-      countries: new FormControl(this.movie?.countries),
-      rating: new FormControl(this.movie?.rating),
     });
   }
   submitForm() {

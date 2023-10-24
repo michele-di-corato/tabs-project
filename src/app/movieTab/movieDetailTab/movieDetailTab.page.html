@@ -9,13 +9,11 @@
   <ion-card>
     <ion-card-header>
       <ion-card-title>{{ movie.title }}</ion-card-title>
-      <ion-card-subtitle>{{ movie.releaseYear }}</ion-card-subtitle>
+      <ion-card-subtitle>{{ movie.start_year }}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Regista: </strong> {{ movie.director }}</p>
-      <p><strong>Durata: </strong> {{ movie.runtimeMinutes }} minuti</p>
+      <p><strong>Durata: </strong> {{ movie.runtime_minutes }} minuti</p>
       <p><strong>Generi: </strong> {{ movie.genres }}</p>
-      <p><strong>Voto: </strong> {{ movie.rating }}</p>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -1,12 +1,7 @@
 export interface MovieList {
   id: string;
   title: string;
-  director: string;
-  releaseYear: number;
-  runtimeMinutes: number;
-  description?: string;
+  start_year: number;
+  runtime_minutes: number;
   genres?: string;
-  celebrities?: string;
-  countries?: string;
-  rating?: number;
 }

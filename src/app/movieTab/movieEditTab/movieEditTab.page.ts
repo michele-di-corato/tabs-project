@@ -29,17 +29,10 @@ export class MovieEditTabPage {
     this.formMovie = new FormGroup({
       id: new FormControl(this.movie?.id),
       title: new FormControl(this.movie?.title, Validators.minLength(5)),
-      director: new FormControl(this.movie?.director, Validators.minLength(5)),
-      releaseYear: new FormControl(this.movie?.releaseYear),
-      runtimeMinutes: new FormControl(this.movie?.runtimeMinutes),
-      description: new FormControl(
-        this.movie?.description,
-        Validators.maxLength(1000)
-      ),
+      releaseYear: new FormControl(this.movie?.start_year),
+      runtimeMinutes: new FormControl(this.movie?.runtime_minutes),
+
       genres: new FormControl(this.movie?.genres),
-      celebrities: new FormControl(this.movie?.celebrities),
-      countries: new FormControl(this.movie?.countries),
-      rating: new FormControl(this.movie?.rating),
     });
   }
 
