@@ -19,7 +19,7 @@ export class MovieTabPage {
     this._getMovieList();
   }
   private _getMovieList() {
-    this._movieService.movieOb$.subscribe((movieList: MovieList[]) => {
+    this._movieService.getList().subscribe((movieList: MovieList[]) => {
       this.movies = movieList.map((element: MovieList) => {
         return {
           id: element.id,
@@ -27,7 +27,6 @@ export class MovieTabPage {
         };
       });
     });
-    this._movieService.getList();
   }
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });

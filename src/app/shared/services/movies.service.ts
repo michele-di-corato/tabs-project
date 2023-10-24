@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MovieList } from '../interfaces/movies.interface';
-import { Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 @Injectable({
@@ -9,13 +9,19 @@ import { environment } from 'src/environments/environment';
 export class MovieService {
   private _baseUrl = environment.baseUrl;
   private _movies: MovieList[] = [];
+
   constructor(private readonly _http: HttpClient) {}
+
   private _numId = this._movies.length;
   private _movie$ = new Subject<MovieList[]>();
+
   movieOb$ = this._movie$.asObservable();
-  getList(): void {
-    this._http.get<MovieList[]>(
-      `${this._baseUrl}/movies?order_by=id&page=0&size=25`
+
+  getList(): Observable<MovieList[]> {
+    return this._http.get<MovieList[]>(`${this._baseUrl}/movies`).pipe(
+      map((movie: any) => {
+        return movie.movies;
+      })
     );
     // this._movie$.next(this._movies);
   }
