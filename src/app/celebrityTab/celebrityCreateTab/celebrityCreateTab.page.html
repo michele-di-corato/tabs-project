@@ -1,0 +1,69 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-breadcrumbs>
+      <ion-breadcrumb href="#celebrities">
+        Celebrities
+        <ion-icon
+          class="icon"
+          aria-hidden="true"
+          name="person-circle-outline"
+        ></ion-icon>
+      </ion-breadcrumb>
+      <ion-breadcrumb>Aggiungi</ion-breadcrumb>
+    </ion-breadcrumbs>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <form
+      *ngIf="formCelebrity"
+      [formGroup]="formCelebrity"
+      (ngSubmit)="submitForm()"
+    >
+      <ion-list>
+        <ion-item>
+          <ion-input
+            label="Nome:"
+            labelPlacement="stacked"
+            formControlName="primaryName"
+            type="text"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Anno di nascita:"
+            labelPlacement="stacked"
+            formControlName="birthYear"
+            type="number"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Anno di morte:"
+            labelPlacement="stacked"
+            formControlName="deathYear"
+            type="number"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Nazionalità:"
+            labelPlacement="stacked"
+            formControlName="nationality"
+            type="text"
+          ></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-row>
+        <ion-col offset="3">
+          <ion-button type="submit" [disabled]="!formCelebrity.valid">
+            Aggiungi celebrità
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-card>
+</ion-content>

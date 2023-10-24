@@ -15,10 +15,10 @@ export class CelebrityTabPage {
     private readonly _celebrityService: CelebrityService,
     private readonly _router: Router,
     private readonly _route: ActivatedRoute
-  ) {}
-  ionViewWillEnter() {
+  ) {
     this._getCelebrityList();
   }
+
   private _getCelebrityList() {
     this._celebrityService.celebrityOb$.subscribe(
       (celebrityList: CelebrityList[]) => {
@@ -40,5 +40,8 @@ export class CelebrityTabPage {
   }
   deleteCelebrity(id: string): void {
     this._celebrityService.deleteCelebrity(id);
+  }
+  goToAddPage(): void {
+    this._router.navigate(['create'], { relativeTo: this._route });
   }
 }

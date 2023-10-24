@@ -5,10 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CelebrityTabPage } from './celebrityTab.page';
 
 import { CelebrityTabPageRoutingModule } from './celebrityTab-routing.module';
-import { ListComponent } from '../shared/components/list/list.component';
 import { ListComponentModule } from '../shared/components/list/list.module';
 import { CelebrityDetailTabPage } from './celebrityDetailTab/celebrityDetailTab.page';
 import { CelebrityEditTabPage } from './celebrityEditTab/celebrityEditTab.page';
+import { CelebrityCreateTabPage } from './celebrityCreateTab/celebrityCreateTab.page';
 
 @NgModule({
   imports: [
@@ -23,6 +23,7 @@ import { CelebrityEditTabPage } from './celebrityEditTab/celebrityEditTab.page';
     CelebrityTabPage,
     CelebrityDetailTabPage,
     CelebrityEditTabPage,
+    CelebrityCreateTabPage,
   ],
 })
 export class CelebrityTabPageModule {}

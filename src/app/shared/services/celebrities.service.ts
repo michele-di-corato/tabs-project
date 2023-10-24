@@ -83,6 +83,7 @@ export class CelebrityService {
       birthYear: 1943,
     },
   ];
+  private _numId = this._celebrities.length;
   private _celebrity$ = new Subject<CelebrityList[]>();
   celebrityOb$ = this._celebrity$.asObservable();
   getList(): void {
@@ -108,6 +109,12 @@ export class CelebrityService {
     if (i !== -1) {
       this._celebrities.splice(i, 1);
     }
+    this._celebrity$.next(this._celebrities);
+  }
+  addCelebrity(createdCelebrity: CelebrityList): void {
+    this._numId += 1;
+    createdCelebrity.id = this._numId.toString();
+    this._celebrities.push(createdCelebrity);
     this._celebrity$.next(this._celebrities);
   }
 }
