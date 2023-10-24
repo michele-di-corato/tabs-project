@@ -11,6 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['movieCreateTab.page.scss'],
 })
 export class MovieCreateTabPage {
+  buttonStart = true;
   movie: MovieList | undefined;
   formMovie: FormGroup | undefined;
   constructor(

@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['movieDetailTab.page.scss'],
 })
 export class MovieDetailTabPage implements OnInit {
+  buttonStart = true;
   movie: MovieList | undefined;
   constructor(
     private readonly _movieService: MovieService,

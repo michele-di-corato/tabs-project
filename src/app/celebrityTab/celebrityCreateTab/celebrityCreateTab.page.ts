@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['celebrityCreateTab.page.scss'],
 })
 export class CelebrityCreateTabPage {
+  buttonStart = true;
   celebrity: CelebrityList | undefined;
   formCelebrity: FormGroup | undefined;
   constructor(

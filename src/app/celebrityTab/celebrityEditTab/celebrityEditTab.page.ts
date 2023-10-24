@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
   styleUrls: ['celebrityEditTab.page.scss'],
 })
 export class CelebrityEditTabPage {
+  buttonStart = true;
   celebrity: CelebrityList | undefined;
   formCelebrity: FormGroup | undefined;
   constructor(

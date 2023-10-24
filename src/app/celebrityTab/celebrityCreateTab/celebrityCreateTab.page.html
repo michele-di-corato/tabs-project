@@ -1,21 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-breadcrumbs>
-      <ion-breadcrumb href="#celebrities">
-        Celebrities
-        <ion-icon
-          class="icon"
-          aria-hidden="true"
-          name="person-circle-outline"
-        ></ion-icon>
-      </ion-breadcrumb>
-      <ion-breadcrumb>Aggiungi</ion-breadcrumb>
-    </ion-breadcrumbs>
-  </ion-toolbar>
-</ion-header>
+<app-header [buttonStart]="buttonStart"
+  ><ion-breadcrumb href="#celebrities">
+    Celebrities
+    <ion-icon
+      class="icon"
+      aria-hidden="true"
+      name="people-circle-outline"
+    ></ion-icon> </ion-breadcrumb
+  ><ion-breadcrumb>Add celebrity</ion-breadcrumb>
+</app-header>
+
 <ion-content>
   <ion-card>
     <form

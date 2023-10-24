@@ -12,6 +12,7 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['movieEditTab.page.scss'],
 })
 export class MovieEditTabPage {
+  buttonStart = true;
   movie: MovieList | undefined;
   formMovie: FormGroup | undefined;
   constructor(

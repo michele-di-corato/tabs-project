@@ -1,22 +1,12 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button (click)="goToAddPage()">
-        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-    <ion-breadcrumbs>
-      <ion-breadcrumb href="#movies">
-        Movies
-        <ion-icon
-          class="icon"
-          aria-hidden="true"
-          name="film-outline"
-        ></ion-icon>
-      </ion-breadcrumb>
-    </ion-breadcrumbs>
-  </ion-toolbar>
-</ion-header>
+<app-header (redirect)="goToAddPage()"
+  ><ion-breadcrumb href="#movies">
+    Movies
+    <ion-icon
+      class="icon"
+      aria-hidden="true"
+      name="film-outline"
+    ></ion-icon> </ion-breadcrumb
+></app-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">

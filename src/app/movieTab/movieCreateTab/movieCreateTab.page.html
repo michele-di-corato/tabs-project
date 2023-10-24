@@ -1,21 +1,13 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-breadcrumbs>
-      <ion-breadcrumb href="#movies">
-        Movies
-        <ion-icon
-          class="icon"
-          aria-hidden="true"
-          name="film-outline"
-        ></ion-icon>
-      </ion-breadcrumb>
-      <ion-breadcrumb>Add movie</ion-breadcrumb>
-    </ion-breadcrumbs>
-  </ion-toolbar>
-</ion-header>
+<app-header [buttonStart]="buttonStart"
+  ><ion-breadcrumb href="#movies">
+    Movies
+    <ion-icon
+      class="icon"
+      aria-hidden="true"
+      name="film-outline"
+    ></ion-icon> </ion-breadcrumb
+  ><ion-breadcrumb>Add movie</ion-breadcrumb>
+</app-header>
 
 <ion-content>
   <ion-card>

@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['celebrityDetailTab.page.scss'],
 })
 export class CelebrityDetailTabPage implements OnInit {
+  buttonStart = true;
   celebrity: CelebrityList | undefined;
   constructor(
     private readonly _celebrityService: CelebrityService,

@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons *ngIf="buttonStart" slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="!buttonStart" slot="end">
+      <ion-button (click)="startRedirect()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-breadcrumbs>
+      <ng-content></ng-content>
+    </ion-breadcrumbs>
+  </ion-toolbar>
+</ion-header>

@@ -9,6 +9,7 @@ import { ListComponentModule } from '../shared/components/list/list.module';
 import { CelebrityDetailTabPage } from './celebrityDetailTab/celebrityDetailTab.page';
 import { CelebrityEditTabPage } from './celebrityEditTab/celebrityEditTab.page';
 import { CelebrityCreateTabPage } from './celebrityCreateTab/celebrityCreateTab.page';
+import { HeaderComponentModule } from '../shared/components/header/header.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { CelebrityCreateTabPage } from './celebrityCreateTab/celebrityCreateTab.
     ReactiveFormsModule,
     CelebrityTabPageRoutingModule,
     ListComponentModule,
+    HeaderComponentModule,
   ],
   declarations: [
     CelebrityTabPage,

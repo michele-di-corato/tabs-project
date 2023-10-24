@@ -1,24 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-breadcrumbs>
-      <ion-breadcrumb href="#celebrities">
-        Celebrities
-        <ion-icon
-          class="icon"
-          aria-hidden="true"
-          name="person-circle-outline"
-        ></ion-icon>
-      </ion-breadcrumb>
-      <ion-breadcrumb *ngIf="celebrity">
-        {{celebrity.primaryName}}
-      </ion-breadcrumb>
-      <ion-breadcrumb *ngIf="!celebrity">Celebrità</ion-breadcrumb>
-    </ion-breadcrumbs>
-  </ion-toolbar>
-</ion-header>
+<app-header [buttonStart]="buttonStart"
+  ><ion-breadcrumb href="#celebrities">
+    Celebrities
+    <ion-icon
+      class="icon"
+      aria-hidden="true"
+      name="people-circle-outline"
+    ></ion-icon> </ion-breadcrumb
+  ><ion-breadcrumb>Celebrity details</ion-breadcrumb>
+</app-header>
+
 <ion-content *ngIf="celebrity">
   <ion-card>
     <ion-card-header>
