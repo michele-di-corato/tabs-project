@@ -9,6 +9,16 @@ export interface MovieList {
   country?: Country[];
 }
 
+export interface MovieForm {
+  id: string;
+  title: string;
+  year: number;
+  runningTime: number;
+  genres?: string;
+  averageRating: number;
+  numVotes: number;
+}
+
 export interface Cast {
   celebrityId: string;
   celebrityName: string;
@@ -19,8 +29,8 @@ export interface Cast {
 }
 
 export interface Rating {
-  averageRating?: number;
-  numVotes?: number;
+  averageRating: number;
+  numVotes: number;
 }
 
 export interface Country {
