@@ -41,11 +41,9 @@ export class MovieEditTabPage {
 
   submitForm() {
     if (this.formMovie?.valid) {
-      this._movieService.updateMovie(this.formMovie?.value);
-      this.formMovie?.valueChanges.subscribe((x: FormGroup) => {
-        console.log(x);
-      });
-      this._location.back();
+      this._movieService
+        .updateMovie(this.formMovie?.value)
+        .subscribe(() => this._location.back());
     }
   }
 }

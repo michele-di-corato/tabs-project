@@ -18,6 +18,9 @@ export class MovieTabPage {
   ) {
     this._getMovieList();
   }
+  ionViewWillEnter() {
+    this._getMovieList();
+  }
   private _getMovieList() {
     this._movieService.getList().subscribe((movieList: MovieList[]) => {
       this.movies = movieList.map((element: MovieList) => {

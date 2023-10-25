@@ -30,14 +30,18 @@ export class MovieService {
     // let movie = this._movies.find((m) => m.id == id);
     // return movie;
   }
-  updateMovie(editedMovie: MovieList): void {
-    const i = this._movies.findIndex(
-      (movie: MovieList) => movie.id === editedMovie.id
+  updateMovie(editedMovie: MovieList): Observable<MovieList> {
+    return this._http.put<MovieList>(
+      `${this._baseUrl}/movies/${editedMovie.id}`,
+      editedMovie
     );
-    if (i !== -1) {
-      this._movies[i] = editedMovie;
-    }
-    this._movie$.next(this._movies);
+    // const i = this._movies.findIndex(
+    //   (movie: MovieList) => movie.id === editedMovie.id
+    // );
+    // if (i !== -1) {
+    //   this._movies[i] = editedMovie;
+    // }
+    // this._movie$.next(this._movies);
   }
   deleteMovie(id: string): void {
     const i = this._movies.findIndex((movie: MovieList) => movie.id == id);
