@@ -36,8 +36,8 @@ export class MovieEditTabPage {
       year: new FormControl(this.movie?.year),
       runningTime: new FormControl(this.movie?.runningTime),
       genres: new FormControl(this.movie?.genres),
-      averageRating: new FormControl(this.movie?.rating.averageRating),
-      numVotes: new FormControl(this.movie?.rating.numVotes),
+      // averageRating: new FormControl(this.movie?.rating.averageRating),
+      // numVotes: new FormControl(this.movie?.rating.numVotes),
     });
   }
 

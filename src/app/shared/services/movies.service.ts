@@ -8,11 +8,9 @@ import { environment } from 'src/environments/environment';
 })
 export class MovieService {
   private _baseUrl = environment.baseUrl;
-  private _movies: MovieList[] = [];
 
   constructor(private readonly _http: HttpClient) {}
 
-  private _numId = this._movies.length;
   private _movie$ = new Subject<MovieList[]>();
 
   movieOb$ = this._movie$.asObservable();
