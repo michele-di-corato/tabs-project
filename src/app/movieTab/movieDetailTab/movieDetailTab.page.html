@@ -1,5 +1,5 @@
 <app-header [buttonStart]="buttonStart"
-  ><ion-breadcrumb href="#movies">
+  ><ion-breadcrumb>
     Movies
     <ion-icon class="icon" aria-hidden="true" name="film-outline"></ion-icon>
   </ion-breadcrumb>
@@ -22,13 +22,12 @@
       <ion-col *ngFor="let element of movie.cast" size="6">
         <ion-card class="cast-card">
           <ion-card-title>{{element.celebrityName}}</ion-card-title>
-          <ion-card-subtitle>
-            <strong>Ruolo: </strong>{{element.category}}</ion-card-subtitle
-          >
-          <ion-card-content *ngIf="element.characters">
-            <strong>Personaggi: </strong
-            >{{element.characters}}</ion-card-content
-          >
+          <ion-card-content>
+            <p><strong>Ruolo: </strong>{{element.category}}</p>
+            <p *ngIf="element.characters">
+              <strong>Personaggi: </strong>{{element.characters}}
+            </p>
+          </ion-card-content>
         </ion-card>
       </ion-col>
     </ion-row>

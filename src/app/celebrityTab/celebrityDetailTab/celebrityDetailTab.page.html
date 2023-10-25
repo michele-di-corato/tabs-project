@@ -1,5 +1,5 @@
 <app-header [buttonStart]="buttonStart"
-  ><ion-breadcrumb href="#celebrities">
+  ><ion-breadcrumb>
     Celebrities
     <ion-icon
       class="icon"
@@ -12,12 +12,31 @@
 <ion-content *ngIf="celebrity">
   <ion-card>
     <ion-card-header>
-      <ion-card-title>{{celebrity.primaryName}}</ion-card-title>
+      <ion-card-title>{{celebrity.name}}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       <p><strong>Anno di nascita: </strong> {{celebrity.birthYear}}</p>
+      <p *ngIf="celebrity.deathYear">
+        <strong>Anno della morte: </strong> {{celebrity.deathYear}}
+      </p>
     </ion-card-content>
   </ion-card>
+  <ion-title *ngIf="celebrity.movies">Film in cui ha partecipato</ion-title>
+  <ion-grid *ngIf="celebrity.movies">
+    <ion-row>
+      <ion-col *ngFor="let element of celebrity.movies" offset="1" size="10">
+        <ion-card class="cast-card">
+          <ion-card-title>{{element.movieTitle}}</ion-card-title>
+          <ion-card-content>
+            <p><strong>Ruolo: </strong>{{element.category}}</p>
+            <p *ngIf="element.characters">
+              <strong>Personaggi: </strong>{{element.characters}}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-content *ngIf="!celebrity">
   <ion-card>

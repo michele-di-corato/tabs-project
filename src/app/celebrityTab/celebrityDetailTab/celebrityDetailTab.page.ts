@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CelebrityService } from 'src/app/shared/services/celebrities.service';
 import { CelebrityList } from 'src/app/shared/interfaces/celebrities.interface';
 import { ActivatedRoute } from '@angular/router';
@@ -8,15 +8,16 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: 'celebrityDetailTab.page.html',
   styleUrls: ['celebrityDetailTab.page.scss'],
 })
-export class CelebrityDetailTabPage implements OnInit {
+export class CelebrityDetailTabPage {
   buttonStart = true;
   celebrity: CelebrityList | undefined;
   constructor(
     private readonly _celebrityService: CelebrityService,
     private readonly _route: ActivatedRoute
-  ) {}
-  ngOnInit(): void {
+  ) {
     const id = this._route.snapshot.params['id'];
-    this.celebrity = this._celebrityService.getCelebrityById(String(id));
+    this._celebrityService
+      .getCelebrityById(String(id))
+      .subscribe((celebrity: CelebrityList) => (this.celebrity = celebrity));
   }
 }

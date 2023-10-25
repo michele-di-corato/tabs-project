@@ -1,7 +1,16 @@
 export interface CelebrityList {
   id: string;
-  primaryName: string;
+  name: string;
   birthYear: number;
   deathYear?: number;
-  nationality?: string;
+  movies?: Movies[];
+}
+
+export interface Movies {
+  celebrityId: string;
+  celebrityName: string;
+  movieId: string;
+  movieTitle: string;
+  category: string;
+  characters?: string;
 }

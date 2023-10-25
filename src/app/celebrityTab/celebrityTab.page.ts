@@ -19,18 +19,21 @@ export class CelebrityTabPage {
     this._getCelebrityList();
   }
 
+  ionViewWillEnter() {
+    this._getCelebrityList();
+  }
+
   private _getCelebrityList() {
-    this._celebrityService.celebrityOb$.subscribe(
-      (celebrityList: CelebrityList[]) => {
+    this._celebrityService
+      .getList()
+      .subscribe((celebrityList: CelebrityList[]) => {
         this.celebrities = celebrityList.map((element: CelebrityList) => {
           return {
             id: element.id,
-            name: element.primaryName,
+            name: element.name,
           };
         });
-      }
-    );
-    this._celebrityService.getList();
+      });
   }
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
@@ -39,7 +42,9 @@ export class CelebrityTabPage {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
   deleteCelebrity(id: string): void {
-    this._celebrityService.deleteCelebrity(id);
+    this._celebrityService
+      .deleteCelebrity(id)
+      .subscribe(() => this._getCelebrityList());
   }
   goToAddPage(): void {
     this._router.navigate(['create'], { relativeTo: this._route });

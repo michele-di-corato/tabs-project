@@ -20,26 +20,33 @@ export class CelebrityEditTabPage {
     private readonly _location: Location
   ) {
     const id = this._route.snapshot.params['id'];
-    this.celebrity = this._celebrityService.getCelebrityById(String(id));
-    this._setForm();
+    this._celebrityService
+      .getCelebrityById(String(id))
+      .subscribe((celebrity: CelebrityList) => {
+        this.celebrity = celebrity;
+        this._setForm();
+      });
   }
   private _setForm() {
     this.formCelebrity = new FormGroup({
       id: new FormControl(this.celebrity?.id),
-      primaryName: new FormControl(
-        this.celebrity?.primaryName,
-        Validators.minLength(5)
+      name: new FormControl(this.celebrity?.name, Validators.minLength(5)),
+      birthYear: new FormControl(
+        this.celebrity?.birthYear,
+        Validators.compose([Validators.min(1800), Validators.max(2024)])
       ),
-      birthYear: new FormControl(this.celebrity?.birthYear),
-      deathYear: new FormControl(this.celebrity?.deathYear),
-      nationality: new FormControl(this.celebrity?.nationality),
+      deathYear: new FormControl(
+        this.celebrity?.deathYear,
+        Validators.compose([Validators.min(1800), Validators.max(2024)])
+      ),
     });
   }
 
   submitForm() {
     if (this.formCelebrity?.valid) {
-      this._celebrityService.updateCelebrity(this.formCelebrity?.value);
+      this._celebrityService
+        .updateCelebrity(this.formCelebrity?.value)
+        .subscribe(() => this._location.back());
     }
-    this._location.back();
   }
 }

@@ -1,5 +1,5 @@
 <app-header [buttonStart]="buttonStart"
-  ><ion-breadcrumb href="#celebrities">
+  ><ion-breadcrumb>
     Celebrities
     <ion-icon
       class="icon"
@@ -19,9 +19,17 @@
       <ion-list>
         <ion-item>
           <ion-input
+            label="Id:"
+            labelPlacement="stacked"
+            formControlName="id"
+            type="text"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
             label="Nome:"
             labelPlacement="stacked"
-            formControlName="primaryName"
+            formControlName="name"
             type="text"
           ></ion-input>
         </ion-item>
@@ -39,14 +47,6 @@
             labelPlacement="stacked"
             formControlName="deathYear"
             type="number"
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input
-            label="Nazionalità:"
-            labelPlacement="stacked"
-            formControlName="nationality"
-            type="text"
           ></ion-input>
         </ion-item>
       </ion-list>

@@ -21,9 +21,12 @@ export class CelebrityCreateTabPage {
   }
   private _setForm() {
     this.formCelebrity = new FormGroup({
-      id: new FormControl(this.celebrity?.id),
-      primaryName: new FormControl(
-        this.celebrity?.primaryName,
+      id: new FormControl(
+        'nm0000001',
+        Validators.compose([Validators.required, Validators.maxLength(9)])
+      ),
+      name: new FormControl(
+        this.celebrity?.name,
         Validators.compose([
           Validators.required,
           Validators.minLength(5),
@@ -34,25 +37,22 @@ export class CelebrityCreateTabPage {
         this.celebrity?.birthYear,
         Validators.compose([
           Validators.required,
-          Validators.min(1900),
+          Validators.min(1800),
           Validators.max(2024),
         ])
       ),
       deathYear: new FormControl(
         this.celebrity?.deathYear,
-        Validators.compose([Validators.min(1900), Validators.max(2024)])
+        Validators.compose([Validators.min(1800), Validators.max(2024)])
       ),
-      nationality: new FormControl(this.celebrity?.nationality),
     });
   }
 
   submitForm() {
     if (this.formCelebrity?.valid) {
-      this._celebrityService.addCelebrity(this.formCelebrity?.value);
+      this._celebrityService
+        .addCelebrity(this.formCelebrity?.value)
+        .subscribe(() => this._location.back());
     }
-    this.formCelebrity?.valueChanges.subscribe((x: FormGroup) => {
-      console.log(x);
-    });
-    this._location.back();
   }
 }
