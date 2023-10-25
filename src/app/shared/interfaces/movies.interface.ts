@@ -1,10 +1,12 @@
+import { CastMovie } from './cast.interface';
+
 export interface MovieList {
   id: string;
   title: string;
   year: number;
   runningTime: number;
   genres?: string;
-  cast?: Cast[];
+  cast?: CastMovie[];
   rating: Rating;
   country?: Country[];
 }
@@ -17,15 +19,6 @@ export interface MovieForm {
   genres?: string;
   averageRating: number;
   numVotes: number;
-}
-
-export interface Cast {
-  celebrityId: string;
-  celebrityName: string;
-  movieId: string;
-  movieTitle: string;
-  category: string;
-  characters?: string;
 }
 
 export interface Rating {

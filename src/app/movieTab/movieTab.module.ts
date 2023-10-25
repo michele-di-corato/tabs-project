@@ -10,6 +10,7 @@ import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
 import { ListComponentModule } from '../shared/components/list/list.module';
 import { MovieCreateTabPage } from './movieCreateTab/movieCreateTab.page';
 import { HeaderComponentModule } from '../shared/components/header/header.module';
+import { CastCardComponentModule } from '../shared/components/castCard/castCard.module';
 @NgModule({
   imports: [
     IonicModule,
@@ -19,6 +20,7 @@ import { HeaderComponentModule } from '../shared/components/header/header.module
     MovieTabPageRoutingModule,
     ListComponentModule,
     HeaderComponentModule,
+    CastCardComponentModule,
   ],
   declarations: [
     MovieTabPage,

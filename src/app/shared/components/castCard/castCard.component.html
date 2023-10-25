@@ -1,0 +1,17 @@
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let element of list" offset="1" size="10">
+      <ion-card class="cast-card">
+        <ion-card-title>{{
+          page === "movie" ? element.celebrityName : element.movieTitle
+        }}</ion-card-title>
+        <ion-card-content>
+          <p><strong>Ruolo: </strong>{{ element.category }}</p>
+          <p *ngIf="element.characters">
+            <strong>Personaggi: {{ element.characters }}</strong>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-grid>

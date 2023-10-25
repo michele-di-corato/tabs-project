@@ -17,21 +17,11 @@
     </ion-card-content>
   </ion-card>
   <ion-title *ngIf="movie.cast">Cast del film</ion-title>
-  <ion-grid *ngIf="movie.cast">
-    <ion-row>
-      <ion-col *ngFor="let element of movie.cast" size="6">
-        <ion-card class="cast-card">
-          <ion-card-title>{{element.celebrityName}}</ion-card-title>
-          <ion-card-content>
-            <p><strong>Ruolo: </strong>{{element.category}}</p>
-            <p *ngIf="element.characters">
-              <strong>Personaggi: </strong>{{element.characters}}
-            </p>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <app-cast-card
+    *ngIf="movie.cast"
+    [page]="page"
+    [list]="movie.cast"
+  ></app-cast-card>
 </ion-content>
 <ion-content *ngIf="!movie">
   <ion-card>

@@ -10,6 +10,7 @@ import { CelebrityDetailTabPage } from './celebrityDetailTab/celebrityDetailTab.
 import { CelebrityEditTabPage } from './celebrityEditTab/celebrityEditTab.page';
 import { CelebrityCreateTabPage } from './celebrityCreateTab/celebrityCreateTab.page';
 import { HeaderComponentModule } from '../shared/components/header/header.module';
+import { CastCardComponentModule } from '../shared/components/castCard/castCard.module';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { HeaderComponentModule } from '../shared/components/header/header.module
     CelebrityTabPageRoutingModule,
     ListComponentModule,
     HeaderComponentModule,
+    CastCardComponentModule,
   ],
   declarations: [
     CelebrityTabPage,

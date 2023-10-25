@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MovieDetailTabPage {
   buttonStart = true;
+  page = 'movie';
   movie: MovieList | undefined;
   constructor(
     private readonly _movieService: MovieService,
