@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CastMovie } from '../../interfaces/cast.interface';
 
 @Component({
@@ -9,9 +9,5 @@ import { CastMovie } from '../../interfaces/cast.interface';
 export class CastCardComponent {
   @Input() page: string = '';
   @Input() list: CastMovie[] = [];
-  @Output() idForRedirect: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
-  redirectById(id: string) {
-    this.idForRedirect.emit(id);
-  }
 }

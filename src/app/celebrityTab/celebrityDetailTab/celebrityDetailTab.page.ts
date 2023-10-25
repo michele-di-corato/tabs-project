@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CelebrityDetailTabPage {
   buttonStart = true;
-  page = 'celebrity';
+  page = 'movies';
   celebrity: CelebrityList | undefined;
   constructor(
     private readonly _celebrityService: CelebrityService,
