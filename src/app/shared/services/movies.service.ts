@@ -35,13 +35,6 @@ export class MovieService {
       `${this._baseUrl}/movies/${editedMovie.id}`,
       editedMovie
     );
-    // const i = this._movies.findIndex(
-    //   (movie: MovieList) => movie.id === editedMovie.id
-    // );
-    // if (i !== -1) {
-    //   this._movies[i] = editedMovie;
-    // }
-    // this._movie$.next(this._movies);
   }
   deleteMovie(id: string): void {
     const i = this._movies.findIndex((movie: MovieList) => movie.id == id);
@@ -50,10 +43,11 @@ export class MovieService {
     }
     this._movie$.next(this._movies);
   }
-  addMovie(createdMovie: MovieList): void {
-    this._numId += 1;
-    createdMovie.id = this._numId.toString();
-    this._movies.push(createdMovie);
-    this._movie$.next(this._movies);
+  addMovie(createdMovie: MovieList): Observable<MovieList> {
+    return this._http.post<MovieList>(`${this._baseUrl}/movies`, createdMovie);
+    // this._numId += 1;
+    // createdMovie.id = this._numId.toString();
+    // this._movies.push(createdMovie);
+    // this._movie$.next(this._movies);
   }
 }

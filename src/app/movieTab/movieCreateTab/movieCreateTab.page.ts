@@ -4,6 +4,7 @@ import { MovieList } from 'src/app/shared/interfaces/movies.interface';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { defaultIfEmpty } from 'rxjs';
 
 @Component({
   selector: 'app-create-movie',
@@ -23,7 +24,10 @@ export class MovieCreateTabPage {
 
   private _setForm() {
     this.formMovie = new FormGroup({
-      id: new FormControl(this.movie?.id),
+      id: new FormControl(
+        'tt0000001',
+        Validators.compose([Validators.required, Validators.maxLength(9)])
+      ),
       title: new FormControl(
         this.movie?.title,
         Validators.compose([
@@ -32,7 +36,7 @@ export class MovieCreateTabPage {
           Validators.maxLength(100),
         ])
       ),
-      start_year: new FormControl(
+      year: new FormControl(
         this.movie?.year,
         Validators.compose([
           Validators.required,
@@ -40,7 +44,7 @@ export class MovieCreateTabPage {
           Validators.min(1900),
         ])
       ),
-      runtime_minutes: new FormControl(
+      runningTime: new FormControl(
         this.movie?.runningTime,
         Validators.compose([
           Validators.required,
@@ -48,17 +52,19 @@ export class MovieCreateTabPage {
           Validators.max(900),
         ])
       ),
-
       genres: new FormControl(this.movie?.genres),
+      averageRating: new FormControl(
+        0,
+        Validators.compose([Validators.max(10), Validators.min(0)])
+      ),
+      numVotes: new FormControl(0, Validators.compose([Validators.min(0)])),
     });
   }
   submitForm() {
     if (this.formMovie?.valid) {
-      this._movieService.addMovie(this.formMovie?.value);
-      this.formMovie?.valueChanges.subscribe((x: FormGroup) => {
-        console.log(x);
-      });
-      this._location.back();
+      this._movieService
+        .addMovie(this.formMovie?.value)
+        .subscribe(() => this._location.back());
     }
   }
 }

@@ -15,6 +15,14 @@
       <ion-list>
         <ion-item>
           <ion-input
+            label="Id:"
+            labelPlacement="stacked"
+            formControlName="id"
+            type="text"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
             label="Titolo:"
             labelPlacement="stacked"
             formControlName="title"
@@ -43,6 +51,22 @@
             labelPlacement="stacked"
             formControlName="genres"
             type="text"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Media dei voti:"
+            labelPlacement="stacked"
+            formControlName="averageRating"
+            type="number"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Numero di voti:"
+            labelPlacement="stacked"
+            formControlName="numVotes"
+            type="number"
           ></ion-input>
         </ion-item>
       </ion-list>
