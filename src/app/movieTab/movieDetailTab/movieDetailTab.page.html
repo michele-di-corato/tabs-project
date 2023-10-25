@@ -16,6 +16,23 @@
       <p><strong>Generi: </strong> {{ movie.genres }}</p>
     </ion-card-content>
   </ion-card>
+  <ion-title *ngIf="movie.cast">Cast del film</ion-title>
+  <ion-grid *ngIf="movie.cast">
+    <ion-row>
+      <ion-col *ngFor="let element of movie.cast" size="6">
+        <ion-card class="cast-card">
+          <ion-card-title>{{element.celebrityName}}</ion-card-title>
+          <ion-card-subtitle>
+            <strong>Ruolo: </strong>{{element.category}}</ion-card-subtitle
+          >
+          <ion-card-content *ngIf="element.characters">
+            <strong>Personaggi: </strong
+            >{{element.characters}}</ion-card-content
+          >
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 <ion-content *ngIf="!movie">
   <ion-card>
