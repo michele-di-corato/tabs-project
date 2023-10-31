@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
+import { RangeCustomEvent } from '@ionic/angular';
+import { BehaviorSubject, map } from 'rxjs';
 import { ItemList } from '../shared/interfaces/list.interface';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
-import { RangeCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-movie-tab',
@@ -13,7 +13,8 @@ import { RangeCustomEvent } from '@ionic/angular';
 })
 export class MovieTabPage {
   movies: ItemList[] = [];
-  ratingRange: number = 0;
+  unfilteredMovies: MovieList[] = [];
+  ratingRange$ = new BehaviorSubject<number>(0);
   constructor(
     private readonly _movieService: MovieService,
     private readonly _router: Router,
@@ -24,7 +25,8 @@ export class MovieTabPage {
   }
   private _getMovieList() {
     this._movieService.getList().subscribe((movieList: MovieList[]) => {
-      this.movies = movieList.map((element: MovieList) => {
+      this.unfilteredMovies = movieList;
+      this.movies = this.unfilteredMovies.map((element: MovieList) => {
         return {
           id: element.id,
           name: `${element.title} (${element.rating.averageRating})`,
@@ -33,29 +35,34 @@ export class MovieTabPage {
     });
   }
   onIonChange(rating: Event) {
-    this._getMoviesWithAvgRating(
-      Number((rating as RangeCustomEvent).detail.value)
-    );
-  }
-  onIonKnobMoveEnd(rating: Event) {
-    this.ratingRange = Number((rating as RangeCustomEvent).detail.value);
+    this.ratingRange$.next(Number((rating as RangeCustomEvent).detail.value));
+    this._getMoviesWithAvgRating(this.ratingRange$.value);
   }
   private _getMoviesWithAvgRating(rating: number) {
-    this._movieService
-      .getList()
-      .pipe(
-        map((movies) =>
-          movies.filter((movie) => movie.rating.averageRating > rating)
-        )
-      )
-      .subscribe((movieList: MovieList[]) => {
-        this.movies = movieList.map((element: MovieList) => {
-          return {
-            id: element.id,
-            name: element.title,
-            rating: element.rating.averageRating,
-          };
-        });
+    // this._movieService
+    //   .getList()
+    //   .pipe(
+    //     map((movies) =>
+    //       movies.filter((movie) => movie.rating.averageRating > rating)
+    //     )
+    //   )
+    //   .subscribe((movieList: MovieList[]) => {
+    //     this.movies = movieList.map((element: MovieList) => {
+    //       return {
+    //         id: element.id,
+    //         name: element.title,
+    //         rating: element.rating.averageRating,
+    //       };
+    //     });
+    //   });
+    this.movies = this.unfilteredMovies
+      .filter((movie) => movie.rating.averageRating > this.ratingRange$.value)
+      .map((element: MovieList) => {
+        return {
+          id: element.id,
+          name: element.title,
+          rating: element.rating.averageRating,
+        };
       });
   }
   goToDetailPage(id: string): void {
