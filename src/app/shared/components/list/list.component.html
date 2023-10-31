@@ -5,7 +5,7 @@
         >{{ element.name }} {{ element.rating ? "(" + element.rating + ")" : ""
         }}<ion-progress-bar
           *ngIf="element.rating"
-          [value]="element.rating / 10"
+          [value]="element.rating"
         ></ion-progress-bar
       ></ion-label>
     </ion-item>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, switchMap } from 'rxjs';
 import { ItemList } from '../shared/interfaces/list.interface';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
@@ -13,7 +13,7 @@ import { MovieService } from '../shared/services/movies.service';
 })
 export class MovieTabPage {
   movies: ItemList[] = [];
-  unfilteredMovies: MovieList[] = [];
+  unfilteredMovies: ItemList[] = [];
   ratingRange$ = new BehaviorSubject<number>(0);
   constructor(
     private readonly _movieService: MovieService,
@@ -21,36 +21,44 @@ export class MovieTabPage {
     private readonly _route: ActivatedRoute
   ) {}
   ionViewWillEnter() {
-    this._getMovieList();
-    this.ratingRange$.subscribe((value) => {
-      console.log(value);
-      this._getMoviesWithAvgRating(value);
-    });
-  }
-  private _getMovieList() {
-    this._movieService.getList().subscribe((movieList: MovieList[]) => {
-      this.unfilteredMovies = movieList;
-      this.movies = this.unfilteredMovies.map((element: MovieList) => {
-        return {
-          id: element.id,
-          name: `${element.title} (${element.rating.averageRating})`,
-        };
+    // combineLatest({
+    //   movieList: this._movieService.getList(),
+    //   rating: this.ratingRange$,
+    // }).subscribe(({ movieList, rating }) => {
+    //   this.unfilteredMovies = movieList.map((element: MovieList) => {
+    //     return {
+    //       id: element.id,
+    //       name: element.title,
+    //       rating: element.rating.averageRating / 10,
+    //     };
+    //   });
+    //   this._getMoviesWithAvgRating(rating);
+    // });
+    this._movieService
+      .getList()
+      .pipe(
+        switchMap((movies) => {
+          this.unfilteredMovies = movies.map((movie: MovieList) => {
+            return {
+              id: movie.id,
+              name: movie.title,
+              rating: movie.rating.averageRating,
+            };
+          });
+          return this.ratingRange$;
+        })
+      )
+      .subscribe((value) => {
+        this._getMoviesWithAvgRating(value);
       });
-    });
   }
   onIonChange(rating: Event) {
     this.ratingRange$.next(Number((rating as RangeCustomEvent).detail.value));
   }
   private _getMoviesWithAvgRating(rating: number) {
-    this.movies = this.unfilteredMovies
-      .filter((movie) => movie.rating.averageRating > rating)
-      .map((element: MovieList) => {
-        return {
-          id: element.id,
-          name: element.title,
-          rating: element.rating.averageRating,
-        };
-      });
+    this.movies = this.unfilteredMovies.filter(
+      (movie) => (movie.rating || 0) > rating
+    );
   }
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
@@ -59,9 +67,8 @@ export class MovieTabPage {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
   deleteMovie(id: string): void {
-    this._movieService.deleteMovie(id).subscribe(() => {
-      this._getMovieList();
-    });
+    // TODO: Da correggere dopo il nuovo metodo di chiamata
+    this._movieService.deleteMovie(id);
   }
   goToAddPage(): void {
     this._router.navigate(['create'], { relativeTo: this._route });
