@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ItemList } from '../shared/interfaces/list.interface';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
@@ -22,6 +22,10 @@ export class MovieTabPage {
   ) {}
   ionViewWillEnter() {
     this._getMovieList();
+    this.ratingRange$.subscribe((value) => {
+      console.log(value);
+      this._getMoviesWithAvgRating(value);
+    });
   }
   private _getMovieList() {
     this._movieService.getList().subscribe((movieList: MovieList[]) => {
@@ -36,27 +40,10 @@ export class MovieTabPage {
   }
   onIonChange(rating: Event) {
     this.ratingRange$.next(Number((rating as RangeCustomEvent).detail.value));
-    this._getMoviesWithAvgRating(this.ratingRange$.value);
   }
   private _getMoviesWithAvgRating(rating: number) {
-    // this._movieService
-    //   .getList()
-    //   .pipe(
-    //     map((movies) =>
-    //       movies.filter((movie) => movie.rating.averageRating > rating)
-    //     )
-    //   )
-    //   .subscribe((movieList: MovieList[]) => {
-    //     this.movies = movieList.map((element: MovieList) => {
-    //       return {
-    //         id: element.id,
-    //         name: element.title,
-    //         rating: element.rating.averageRating,
-    //       };
-    //     });
-    //   });
     this.movies = this.unfilteredMovies
-      .filter((movie) => movie.rating.averageRating > this.ratingRange$.value)
+      .filter((movie) => movie.rating.averageRating > rating)
       .map((element: MovieList) => {
         return {
           id: element.id,
