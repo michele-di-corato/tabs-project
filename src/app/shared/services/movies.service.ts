@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { MovieForm, MovieList } from '../interfaces/movies.interface';
-import { Observable, Subject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, Subject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { MovieForm, MovieList } from '../interfaces/movies.interface';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,7 +16,7 @@ export class MovieService {
   movieOb$ = this._movie$.asObservable();
 
   getList(): Observable<MovieList[]> {
-    return this._http.get<MovieList[]>(`${this._baseUrl}/movies`).pipe(
+    return this._http.get<MovieList[]>(`${this._baseUrl}/movies?size=200`).pipe(
       map((movie: any) => {
         return movie.movies;
       })
