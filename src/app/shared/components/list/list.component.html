@@ -1,8 +1,9 @@
 <ion-list>
-  <ion-item-sliding *ngFor="let element of list">
+  <ion-item-sliding *ngFor="let element of list | orderBy">
     <ion-item button (click)="selectById(element.id)">
       <ion-label
-        >{{ element.name }} {{ element.rating ? "(" + element.rating + ")" : ""
+        >{{ element.name }}
+        {{ element.rating ? "(" + (element.rating | toInt : 2) + ")" : ""
         }}<ion-progress-bar
           *ngIf="element.rating"
           [value]="element.rating"

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
-import { BehaviorSubject, combineLatest, switchMap } from 'rxjs';
+import { BehaviorSubject, switchMap } from 'rxjs';
 import { ItemList } from '../shared/interfaces/list.interface';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
@@ -21,19 +21,6 @@ export class MovieTabPage {
     private readonly _route: ActivatedRoute
   ) {}
   ionViewWillEnter() {
-    // combineLatest({
-    //   movieList: this._movieService.getList(),
-    //   rating: this.ratingRange$,
-    // }).subscribe(({ movieList, rating }) => {
-    //   this.unfilteredMovies = movieList.map((element: MovieList) => {
-    //     return {
-    //       id: element.id,
-    //       name: element.title,
-    //       rating: element.rating.averageRating / 10,
-    //     };
-    //   });
-    //   this._getMoviesWithAvgRating(rating);
-    // });
     this._movieService
       .getList()
       .pipe(
@@ -42,7 +29,7 @@ export class MovieTabPage {
             return {
               id: movie.id,
               name: movie.title,
-              rating: movie.rating.averageRating,
+              rating: movie.rating.averageRating / 10,
             };
           });
           return this.ratingRange$;
@@ -57,7 +44,7 @@ export class MovieTabPage {
   }
   private _getMoviesWithAvgRating(rating: number) {
     this.movies = this.unfilteredMovies.filter(
-      (movie) => (movie.rating || 0) > rating
+      (movie) => (movie.rating || 0) > rating / 10
     );
   }
   goToDetailPage(id: string): void {
