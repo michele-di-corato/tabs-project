@@ -15,6 +15,14 @@
     </ion-toolbar>
   </ion-header>
   <ion-card>
+    <ion-card-header
+      ><ion-searchbar
+        show-clear-button="always"
+        placeholder="Search by title"
+        [debounce]="500"
+        (ionInput)="ionInput($event)"
+      ></ion-searchbar
+    ></ion-card-header>
     <ion-card-content>
       <ion-label>Search by Rating ({{ratingRange$.value}} or more)</ion-label>
       <ion-range
