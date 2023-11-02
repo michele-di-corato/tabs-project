@@ -20,7 +20,8 @@
         show-clear-button="always"
         placeholder="Search by title"
         [debounce]="500"
-        (ionInput)="ionInput($event)"
+        [formControl]="title"
+        type="text"
       ></ion-searchbar
     ></ion-card-header>
     <ion-card-content>
