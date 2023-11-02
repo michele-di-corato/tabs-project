@@ -15,12 +15,16 @@ export class MovieService {
 
   movieOb$ = this._movie$.asObservable();
 
-  getList(): Observable<MovieList[]> {
-    return this._http.get<MovieList[]>(`${this._baseUrl}/movies?size=200`).pipe(
-      map((movie: any) => {
-        return movie.movies;
-      })
-    );
+  getList(title?: string): Observable<MovieList[]> {
+    return this._http
+      .get<MovieList[]>(
+        `${this._baseUrl}/movies${title ? '?title=' + title.toLowerCase() : ''}`
+      )
+      .pipe(
+        map((movie: any) => {
+          return movie.movies;
+        })
+      );
   }
   getMovieById(id: string): Observable<MovieList> {
     return this._http.get<MovieList>(`${this._baseUrl}/movies/${id}`);
