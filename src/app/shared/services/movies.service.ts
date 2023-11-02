@@ -15,7 +15,7 @@ export class MovieService {
 
   movieOb$ = this._movie$.asObservable();
 
-  getList(title?: string): Observable<MovieList[]> {
+  getList(title?: string | null): Observable<MovieList[]> {
     return this._http
       .get<MovieList[]>(
         `${this._baseUrl}/movies${title ? '?title=' + title.toLowerCase() : ''}`

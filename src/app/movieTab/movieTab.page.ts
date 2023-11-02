@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
-import { BehaviorSubject, switchMap } from 'rxjs';
+import { BehaviorSubject, debounceTime, startWith, switchMap } from 'rxjs';
 import { ItemList } from '../shared/interfaces/list.interface';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
@@ -16,17 +16,16 @@ export class MovieTabPage {
   movies: ItemList[] = [];
   unfilteredMovies: ItemList[] = [];
   ratingRange$ = new BehaviorSubject<number>(0);
-  titleFilter$ = new BehaviorSubject<string>('');
-  title = new FormControl('');
+  title = new FormControl<string>('');
   constructor(
     private readonly _movieService: MovieService,
     private readonly _router: Router,
     private readonly _route: ActivatedRoute
-  ) {}
-  ionViewWillEnter() {
-    this._setSearch();
-    this.titleFilter$
+  ) {
+    this.title.valueChanges
       .pipe(
+        startWith(''),
+        debounceTime(500),
         switchMap((title) => {
           return this._movieService.getList(title);
         }),
@@ -47,14 +46,6 @@ export class MovieTabPage {
   }
   onIonChange(rating: Event) {
     this.ratingRange$.next(Number((rating as RangeCustomEvent).detail.value));
-  }
-  // ionInput(title: Event) {
-  //   this.titleFilter$.next((title.target as HTMLInputElement).value.toString());
-  // }
-  private _setSearch() {
-    this.title.valueChanges.subscribe((value) =>
-      this.titleFilter$.next(value!)
-    );
   }
   private _getMoviesWithAvgRating(rating: number) {
     this.movies = this.unfilteredMovies.filter(
