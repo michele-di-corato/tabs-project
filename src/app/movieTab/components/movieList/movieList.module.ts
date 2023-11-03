@@ -4,10 +4,11 @@ import { IonicModule } from '@ionic/angular';
 import { OrderByPipe } from 'src/app/shared/components/list/order-by.pipe';
 import { ProgressBarComponentModule } from 'src/app/shared/components/progressBar/progressBar.module';
 import { MovieListComponent } from './movieList.component';
+import { TextHighlightDirective } from 'src/app/shared/text-highlight.directive';
 
 @NgModule({
   imports: [IonicModule, CommonModule, ProgressBarComponentModule],
-  declarations: [MovieListComponent, OrderByPipe],
+  declarations: [MovieListComponent, OrderByPipe, TextHighlightDirective],
   exports: [MovieListComponent, OrderByPipe],
 })
 export class MovieListComponentModule {}
