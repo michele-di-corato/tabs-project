@@ -34,7 +34,7 @@ export class MovieTabPage {
             return {
               id: movie.id,
               name: movie.title,
-              rating: movie.rating.averageRating / 10,
+              rating: movie.rating.averageRating,
             };
           });
           return this.ratingRange$;
@@ -49,7 +49,7 @@ export class MovieTabPage {
   }
   private _getMoviesWithAvgRating(rating: number) {
     this.movies = this.unfilteredMovies.filter(
-      (movie) => (movie.rating || 0) > rating / 10
+      (movie) => (movie.rating || 0) > rating
     );
   }
   goToDetailPage(id: string): void {

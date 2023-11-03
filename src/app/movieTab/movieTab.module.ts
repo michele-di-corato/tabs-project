@@ -11,6 +11,7 @@ import { ListComponentModule } from '../shared/components/list/list.module';
 import { MovieCreateTabPage } from './movieCreateTab/movieCreateTab.page';
 import { HeaderComponentModule } from '../shared/components/header/header.module';
 import { CastCardComponentModule } from '../shared/components/castCard/castCard.module';
+import { RatingBarComponentModule } from '../shared/components/ratingBar/ratingBar.module';
 @NgModule({
   imports: [
     IonicModule,
@@ -21,6 +22,7 @@ import { CastCardComponentModule } from '../shared/components/castCard/castCard.
     ListComponentModule,
     HeaderComponentModule,
     CastCardComponentModule,
+    RatingBarComponentModule,
   ],
   declarations: [
     MovieTabPage,
