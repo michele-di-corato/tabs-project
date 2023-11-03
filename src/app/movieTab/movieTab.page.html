@@ -30,10 +30,10 @@
       ></app-rating-bar>
     </ion-card-content>
   </ion-card>
-  <app-list
-    [list]="movies"
+  <app-movie-list
+    [movieList]="movies"
     (idToSelect)="goToDetailPage($event)"
     (idToEdit)="goToEditPage($event)"
     (idToDelete)="deleteMovie($event)"
-  ></app-list>
+  ></app-movie-list>
 </ion-content>

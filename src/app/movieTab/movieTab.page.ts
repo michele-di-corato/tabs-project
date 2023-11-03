@@ -13,8 +13,8 @@ import { MovieService } from '../shared/services/movies.service';
   styleUrls: ['movieTab.page.scss'],
 })
 export class MovieTabPage {
-  movies: ItemList[] = [];
-  unfilteredMovies: ItemList[] = [];
+  movies: MovieList[] = [];
+  unfilteredMovies: MovieList[] = [];
   ratingRange$ = new BehaviorSubject<number>(0);
   title = new FormControl<string>('');
   constructor(
@@ -30,13 +30,7 @@ export class MovieTabPage {
           return this._movieService.getList(title);
         }),
         switchMap((movies) => {
-          this.unfilteredMovies = movies.map((movie: MovieList) => {
-            return {
-              id: movie.id,
-              name: movie.title,
-              rating: movie.rating.averageRating,
-            };
-          });
+          this.unfilteredMovies = movies;
           return this.ratingRange$;
         })
       )
@@ -49,7 +43,7 @@ export class MovieTabPage {
   }
   private _getMoviesWithAvgRating(rating: number) {
     this.movies = this.unfilteredMovies.filter(
-      (movie) => (movie.rating || 0) > rating
+      (movie) => (movie.rating.averageRating || 0) > rating
     );
   }
   goToDetailPage(id: string): void {

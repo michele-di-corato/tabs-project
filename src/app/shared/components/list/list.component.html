@@ -1,5 +1,5 @@
 <ion-list>
-  <ion-item-sliding *ngFor="let element of list | orderBy">
+  <ion-item-sliding *ngFor="let element of list">
     <ion-item button (click)="selectById(element.id)">
       <ion-label
         >{{ element.name }} {{ element.rating ? "(" + element.rating + ")" : ""

@@ -1,0 +1,49 @@
+<ion-list>
+  <ion-item-sliding *ngFor="let movie of movieList | orderBy">
+    <ion-item button (click)="selectById(movie.id)">
+      <ion-grid>
+        <ion-row>
+          <ion-col>{{ movie.title }} ({{ movie.year }})</ion-col>
+        </ion-row>
+        <ion-card-subtitle>
+          <ion-row class="cast" *ngIf="movie.cast">
+            <ion-col size="2">Cast: </ion-col
+            ><ion-col size="10"
+              ><span>
+                <ng-container *ngFor="let person of movie.cast; last as isLast">
+                  {{
+                    isLast === false
+                      ? person.celebrityName + ", "
+                      : person.celebrityName
+                  }}
+                </ng-container>
+              </span>
+            </ion-col>
+          </ion-row>
+        </ion-card-subtitle>
+        <ion-row>
+          <ion-col> </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="10">
+            <app-progress-bar
+              *ngIf="movie.rating.averageRating"
+              [ratingIn]="movie.rating.averageRating"
+            ></app-progress-bar>
+          </ion-col>
+          <ion-col size="2" class="rating">{{
+            movie.rating.averageRating
+          }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+    <ion-item-options>
+      <ion-item-option color="primary" button (click)="editById(movie.id)">
+        <ion-icon class="i-margin" name="create-outline"></ion-icon>
+      </ion-item-option>
+      <ion-item-option color="danger" button (click)="deleteById(movie.id)">
+        <ion-icon class="i-margin" name="trash-outline"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</ion-list>
