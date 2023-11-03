@@ -3,27 +3,21 @@
     <ion-item button (click)="selectById(movie.id)">
       <ion-grid>
         <ion-row>
-          <ion-col>{{ movie.title }} ({{ movie.year }})</ion-col>
+          <ion-col size="6">{{ movie.title }}</ion-col>
+          <ion-col size="2" offset="4">({{ movie.year }})</ion-col>
         </ion-row>
         <ion-card-subtitle>
           <ion-row class="cast" *ngIf="movie.cast">
-            <ion-col size="2">Cast: </ion-col
-            ><ion-col size="10"
-              ><span>
-                <ng-container *ngFor="let person of movie.cast; last as isLast">
-                  {{
-                    isLast === false
-                      ? person.celebrityName + ", "
-                      : person.celebrityName
-                  }}
-                </ng-container>
-              </span>
+            <ion-col size="2">Actors: </ion-col
+            ><ion-col size="10">
+              <ng-container *ngFor="let person of movie.cast">
+                {{
+                  person.category === "actor" ? person.celebrityName + ", " : ""
+                }}
+              </ng-container>
             </ion-col>
           </ion-row>
         </ion-card-subtitle>
-        <ion-row>
-          <ion-col> </ion-col>
-        </ion-row>
         <ion-row>
           <ion-col size="10">
             <app-progress-bar
@@ -31,9 +25,9 @@
               [ratingIn]="movie.rating.averageRating"
             ></app-progress-bar>
           </ion-col>
-          <ion-col size="2" class="rating">{{
-            movie.rating.averageRating
-          }}</ion-col>
+          <ion-col size="2" class="rating"
+            >Rating: {{ movie.rating.averageRating }}</ion-col
+          >
         </ion-row>
       </ion-grid>
     </ion-item>

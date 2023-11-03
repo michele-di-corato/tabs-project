@@ -2,8 +2,13 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
-import { BehaviorSubject, debounceTime, startWith, switchMap } from 'rxjs';
-import { ItemList } from '../shared/interfaces/list.interface';
+import {
+  BehaviorSubject,
+  Subject,
+  debounceTime,
+  startWith,
+  switchMap,
+} from 'rxjs';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
 
@@ -17,6 +22,8 @@ export class MovieTabPage {
   unfilteredMovies: MovieList[] = [];
   ratingRange$ = new BehaviorSubject<number>(0);
   title = new FormControl<string>('');
+  selectedId$ = new BehaviorSubject<string>('');
+  selectedMovie: MovieList | undefined;
   constructor(
     private readonly _movieService: MovieService,
     private readonly _router: Router,
@@ -34,9 +41,13 @@ export class MovieTabPage {
           return this.ratingRange$;
         })
       )
-      .subscribe((value) => {
-        this._getMoviesWithAvgRating(value);
+      .subscribe((rating) => {
+        this._getMoviesWithAvgRating(rating);
       });
+    this.selectedId$.subscribe((id) => {
+      let movie = this.unfilteredMovies.find((movie) => movie.id === id);
+      if (movie) this.selectedMovie = movie;
+    });
   }
   onIonChange(rating: Event) {
     this.ratingRange$.next(Number((rating as RangeCustomEvent).detail.value));
@@ -45,6 +56,9 @@ export class MovieTabPage {
     this.movies = this.unfilteredMovies.filter(
       (movie) => (movie.rating.averageRating || 0) > rating
     );
+  }
+  loadMovie(id: string): void {
+    this.selectedId$.next(id);
   }
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });

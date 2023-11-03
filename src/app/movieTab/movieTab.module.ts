@@ -12,6 +12,7 @@ import { MovieCreateTabPage } from './movieCreateTab/movieCreateTab.page';
 import { MovieDetailTabPage } from './movieDetailTab/movieDetailTab.page';
 import { MovieEditTabPage } from './movieEditTab/movieEditTab.page';
 import { MovieTabPageRoutingModule } from './movieTab-routing.module';
+import { ProgressBarComponentModule } from '../shared/components/progressBar/progressBar.module';
 @NgModule({
   imports: [
     IonicModule,
@@ -23,6 +24,7 @@ import { MovieTabPageRoutingModule } from './movieTab-routing.module';
     CastCardComponentModule,
     RatingBarComponentModule,
     MovieListComponentModule,
+    ProgressBarComponentModule,
   ],
   declarations: [
     MovieTabPage,
