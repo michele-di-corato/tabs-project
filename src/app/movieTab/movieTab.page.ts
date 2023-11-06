@@ -6,6 +6,7 @@ import {
   BehaviorSubject,
   Subject,
   debounceTime,
+  first,
   startWith,
   switchMap,
 } from 'rxjs';
@@ -67,8 +68,9 @@ export class MovieTabPage {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
   deleteMovie(id: string): void {
-    // TODO: Da correggere dopo il nuovo metodo di chiamata
-    this._movieService.deleteMovie(id);
+    this._movieService.deleteMovie(id).subscribe((movies) => {
+      this.movies = movies;
+    });
   }
   goToAddPage(): void {
     this._router.navigate(['create'], { relativeTo: this._route });

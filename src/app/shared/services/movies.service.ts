@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, map } from 'rxjs';
+import { Observable, Subject, first, map, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MovieForm, MovieList } from '../interfaces/movies.interface';
 @Injectable({
@@ -21,8 +21,8 @@ export class MovieService {
         `${this._baseUrl}/movies${title ? '?title=' + title.toLowerCase() : ''}`
       )
       .pipe(
-        map((movie: any) => {
-          return movie.movies;
+        map((movies: any) => {
+          return movies.movies;
         })
       );
   }
@@ -35,8 +35,11 @@ export class MovieService {
       editedMovie
     );
   }
-  deleteMovie(id: string): Observable<MovieList> {
-    return this._http.delete<MovieList>(`${this._baseUrl}/movies/${id}`);
+  deleteMovie(id: string): Observable<MovieList[]> {
+    return this._http.delete<MovieList>(`${this._baseUrl}/movies/${id}`).pipe(
+      first(),
+      switchMap(() => this.getList())
+    );
   }
   addMovie(createdMovie: MovieForm): Observable<MovieList> {
     const movieDto: MovieList = this.formToDto(createdMovie);
