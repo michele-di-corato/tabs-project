@@ -17,6 +17,8 @@ export class TextHighlightDirective {
   protected _setColor(value: number) {
     if (value <= this.maxRating) {
       this._eleRef.nativeElement.style.color = 'saddlebrown';
+    } else {
+      this._eleRef.nativeElement.style.color = 'white';
     }
   }
 }
