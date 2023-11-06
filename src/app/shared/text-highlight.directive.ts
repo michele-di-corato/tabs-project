@@ -1,21 +1,22 @@
 import { Directive, ElementRef, Input } from '@angular/core';
 @Directive({
-  selector: '[textHighlight]',
+  selector: '[appTextHighlight]',
 })
 export class TextHighlightDirective {
   @Input()
-  get number() {
+  get appTextHighlight() {
     return this._number;
   }
-  set number(value: number) {
+  set appTextHighlight(value: number) {
     this._number = value;
-    this._setColor(this._number);
+    this._setColor(this.appTextHighlight);
   }
+  @Input() maxRating = 4;
   protected _number = 0;
   constructor(private _eleRef: ElementRef) {}
   protected _setColor(value: number) {
-    if (value <= 4) {
-      this._eleRef.nativeElement.style.color = 'brown';
+    if (value <= this.maxRating) {
+      this._eleRef.nativeElement.style.color = 'saddlebrown';
     }
   }
 }
