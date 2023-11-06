@@ -19,19 +19,21 @@
       ><ion-searchbar
         show-clear-button="always"
         placeholder="Search by title"
-        [formControl]="title"
+        debounce="500"
+        (ionInput)="onTitleIonChange($event)"
         type="text"
       ></ion-searchbar
     ></ion-card-header>
     <ion-card-content>
       <app-rating-bar
         [ratingIn]="ratingRange$.value"
-        (ratingOut)="onIonChange($event)"
+        (ratingOut)="onRatingIonChange($event)"
       ></app-rating-bar>
     </ion-card-content>
   </ion-card>
   <app-movie-list
-    [movieList]="movies"
+    *ngIf="filteredMovies.length > 0"
+    [movieList]="filteredMovies"
     (idToSelect)="loadMovie($event)"
     (idToEdit)="goToEditPage($event)"
     (idToDelete)="deleteMovie($event)"

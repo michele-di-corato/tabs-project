@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
-import {
-  BehaviorSubject,
-  Subject,
-  debounceTime,
-  first,
-  startWith,
-  switchMap,
-} from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { MovieList } from '../shared/interfaces/movies.interface';
 import { MovieService } from '../shared/services/movies.service';
 
@@ -20,9 +13,8 @@ import { MovieService } from '../shared/services/movies.service';
 })
 export class MovieTabPage {
   movies: MovieList[] = [];
-  unfilteredMovies: MovieList[] = [];
+  filteredMovies: MovieList[] = [];
   ratingRange$ = new BehaviorSubject<number>(0);
-  title = new FormControl<string>('');
   selectedId$ = new BehaviorSubject<string>('');
   selectedMovie: MovieList | undefined;
   constructor(
@@ -30,33 +22,22 @@ export class MovieTabPage {
     private readonly _router: Router,
     private readonly _route: ActivatedRoute
   ) {
-    this.title.valueChanges
-      .pipe(
-        startWith(''),
-        debounceTime(500),
-        switchMap((title) => {
-          return this._movieService.getList(title);
-        }),
-        switchMap((movies) => {
-          this.unfilteredMovies = movies;
-          return this.ratingRange$;
-        })
-      )
-      .subscribe((rating) => {
-        this._getMoviesWithAvgRating(rating);
-      });
-    this.selectedId$.subscribe((id) => {
-      let movie = this.unfilteredMovies.find((movie) => movie.id === id);
-      if (movie) this.selectedMovie = movie;
+    this._movieService.movies$.subscribe((movies) => {
+      this.movies = movies;
+      this.filteredMovies = movies;
     });
   }
-  onIonChange(rating: Event) {
-    this.ratingRange$.next(Number((rating as RangeCustomEvent).detail.value));
-  }
-  private _getMoviesWithAvgRating(rating: number) {
-    this.movies = this.unfilteredMovies.filter(
+  onRatingIonChange(event: Event) {
+    const rating = Number((event as RangeCustomEvent).detail.value);
+    this.filteredMovies = this.movies.filter(
       (movie) => (movie.rating.averageRating || 0) > rating
     );
+  }
+  onTitleIonChange(event: Event) {
+    this._movieService.filters = {
+      ...this._movieService.currentFilters,
+      title: (event as CustomEvent).detail.value,
+    };
   }
   loadMovie(id: string): void {
     this.selectedId$.next(id);
@@ -68,9 +49,7 @@ export class MovieTabPage {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
   deleteMovie(id: string): void {
-    this._movieService.deleteMovie(id).subscribe((movies) => {
-      this.movies = movies;
-    });
+    this._movieService.deleteMovie(id);
   }
   goToAddPage(): void {
     this._router.navigate(['create'], { relativeTo: this._route });

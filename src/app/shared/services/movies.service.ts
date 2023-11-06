@@ -1,31 +1,69 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, first, map, switchMap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  first,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { MovieForm, MovieList } from '../interfaces/movies.interface';
+import {
+  MovieForm,
+  MovieList,
+  MoviesResponseDto,
+} from '../interfaces/movies.interface';
+export interface MovieFilter {
+  title?: string;
+  orderBy?: string;
+  size?: number;
+  page?: number;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class MovieService {
+  movies$: Observable<MovieList[]>;
+  refresh$ = new BehaviorSubject<boolean>(true);
+  currentFilters: MovieFilter;
   private _baseUrl = environment.baseUrl;
-
-  constructor(private readonly _http: HttpClient) {}
-
-  private _movie$ = new Subject<MovieList[]>();
-
-  movieOb$ = this._movie$.asObservable();
-
-  getList(title?: string | null): Observable<MovieList[]> {
-    return this._http
-      .get<MovieList[]>(
-        `${this._baseUrl}/movies${title ? '?title=' + title.toLowerCase() : ''}`
-      )
-      .pipe(
-        map((movies: any) => {
-          return movies.movies;
-        })
-      );
+  set filters(value: MovieFilter) {
+    this.currentFilters = value;
+    this.refresh();
   }
+  constructor(private readonly _http: HttpClient) {
+    this.currentFilters = {
+      page: 0,
+      size: 20,
+    };
+    this.movies$ = this.refresh$.pipe(
+      switchMap(() => {
+        const params = this.getFilters();
+        return this._http.get<MoviesResponseDto>(`${this._baseUrl}/movies`, {
+          params,
+        });
+      }),
+      map((responseMovies) => responseMovies.movies)
+    );
+  }
+  getFilters() {
+    let params: HttpParams = new HttpParams();
+    if (this.currentFilters.title)
+      params = params.set('title', this.currentFilters.title);
+    if (this.currentFilters.orderBy)
+      params = params.set('order_by', this.currentFilters.orderBy);
+    if (this.currentFilters.page)
+      params = params.set('page', this.currentFilters.page);
+    if (this.currentFilters.size)
+      params = params.set('size', this.currentFilters.size);
+    return params;
+  }
+  refresh() {
+    this.refresh$.next(true);
+  }
+
   getMovieById(id: string): Observable<MovieList> {
     return this._http.get<MovieList>(`${this._baseUrl}/movies/${id}`);
   }
@@ -35,11 +73,14 @@ export class MovieService {
       editedMovie
     );
   }
-  deleteMovie(id: string): Observable<MovieList[]> {
-    return this._http.delete<MovieList>(`${this._baseUrl}/movies/${id}`).pipe(
-      first(),
-      switchMap(() => this.getList())
-    );
+  deleteMovie(id: string): void {
+    this._http
+      .delete<MovieList>(`${this._baseUrl}/movies/${id}`)
+      .pipe(
+        first(),
+        tap(() => this.refresh())
+      )
+      .subscribe();
   }
   addMovie(createdMovie: MovieForm): Observable<MovieList> {
     const movieDto: MovieList = this.formToDto(createdMovie);

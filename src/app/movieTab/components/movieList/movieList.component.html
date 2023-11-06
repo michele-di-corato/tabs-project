@@ -1,5 +1,5 @@
 <ion-list>
-  <ion-item-sliding *ngFor="let movie of movieList | orderBy">
+  <ion-item-sliding *ngFor="let movie of movieList">
     <ion-item button (click)="selectById(movie.id)">
       <ion-grid>
         <ion-row>
