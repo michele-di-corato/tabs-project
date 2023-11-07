@@ -26,6 +26,10 @@ export class MovieTabPage {
       this.movies = movies;
       this.filteredMovies = movies;
     });
+    this.selectedId$.subscribe((id) => {
+      let movie = this.filteredMovies.find((movie) => movie.id === id);
+      if (movie) this.selectedMovie = movie;
+    });
   }
   onRatingIonChange(event: Event) {
     const rating = Number((event as RangeCustomEvent).detail.value);
