@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
 import { BehaviorSubject } from 'rxjs';
