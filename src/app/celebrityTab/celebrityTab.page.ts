@@ -10,31 +10,24 @@ import { ItemList } from '../shared/interfaces/list.interface';
   styleUrls: ['celebrityTab.page.scss'],
 })
 export class CelebrityTabPage {
-  celebrities: ItemList[] = [];
+  celebrities: CelebrityList[] = [];
+  filteredCelebrities: ItemList[] = [];
   constructor(
     private readonly _celebrityService: CelebrityService,
     private readonly _router: Router,
     private readonly _route: ActivatedRoute
   ) {
-    this._getCelebrityList();
-  }
-
-  ionViewWillEnter() {
-    this._getCelebrityList();
-  }
-
-  private _getCelebrityList() {
-    this._celebrityService
-      .getList()
-      .subscribe((celebrityList: CelebrityList[]) => {
-        this.celebrities = celebrityList.map((element: CelebrityList) => {
-          return {
-            id: element.id,
-            name: element.name,
-          };
-        });
+    this._celebrityService.celebrities$.subscribe((celebrities) => {
+      this.celebrities = celebrities;
+      this.filteredCelebrities = celebrities.map((celebrity) => {
+        return {
+          id: celebrity.id,
+          name: celebrity.name,
+        };
       });
+    });
   }
+
   goToDetailPage(id: string): void {
     this._router.navigate(['details', id], { relativeTo: this._route });
   }
@@ -42,9 +35,7 @@ export class CelebrityTabPage {
     this._router.navigate(['edit', id], { relativeTo: this._route });
   }
   deleteCelebrity(id: string): void {
-    this._celebrityService
-      .deleteCelebrity(id)
-      .subscribe(() => this._getCelebrityList());
+    this._celebrityService.deleteCelebrity(id);
   }
   goToAddPage(): void {
     this._router.navigate(['create'], { relativeTo: this._route });

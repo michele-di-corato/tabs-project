@@ -31,8 +31,3 @@ export interface Country {
   region: string;
   language?: string;
 }
-
-export interface MoviesResponseDto {
-  pagination: any;
-  movies: MovieList[];
-}

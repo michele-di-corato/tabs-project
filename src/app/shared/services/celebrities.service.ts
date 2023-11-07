@@ -1,70 +1,89 @@
 import { Injectable } from '@angular/core';
 import { CelebrityList } from '../interfaces/celebrities.interface';
-import { Observable, Subject, map } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  first,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { CelebritiesResponseDto } from '../interfaces/responses.interface';
+export interface CelebrityFilter {
+  name?: string;
+  orderBy?: string;
+  size?: number;
+  page?: number;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class CelebrityService {
   private _baseUrl = environment.baseUrl;
+  celebrities$: Observable<CelebrityList[]>;
+  refresh$ = new BehaviorSubject<boolean>(true);
+  currentFilters: CelebrityFilter;
 
-  constructor(private readonly _http: HttpClient) {}
-
-  private _celebrities: CelebrityList[] = [];
-
-  private _numId = this._celebrities.length;
-
-  private _celebrity$ = new Subject<CelebrityList[]>();
-
-  celebrityOb$ = this._celebrity$.asObservable();
-
-  getList(): Observable<CelebrityList[]> {
-    return this._http.get<CelebrityList[]>(`${this._baseUrl}/celebrities`).pipe(
-      map((celebrity: any) => {
-        return celebrity.celebrities;
-      })
+  constructor(private readonly _http: HttpClient) {
+    this.currentFilters = {
+      page: 0,
+      size: 20,
+    };
+    this.celebrities$ = this.refresh$.pipe(
+      switchMap(() => {
+        const params = this.getFilters();
+        return this._http.get<CelebritiesResponseDto>(
+          `${this._baseUrl}/movies`,
+          {
+            params,
+          }
+        );
+      }),
+      map((response) => response.celebrities)
     );
-    // this._celebrity$.next(this._celebrities);
   }
+  getFilters() {
+    let params: HttpParams = new HttpParams();
+    if (this.currentFilters.name)
+      params = params.set('name', this.currentFilters.name);
+    if (this.currentFilters.orderBy)
+      params = params.set('order_by', this.currentFilters.orderBy);
+    if (this.currentFilters.page)
+      params = params.set('page', this.currentFilters.page);
+    if (this.currentFilters.size)
+      params = params.set('size', this.currentFilters.size);
+    return params;
+  }
+  refresh() {
+    this.refresh$.next(true);
+  }
+
   getCelebrityById(id: string): Observable<CelebrityList> {
     return this._http.get<CelebrityList>(`${this._baseUrl}/celebrities/${id}`);
-    // let celebrity = this._celebrities.find((m) => m.id == id);
-    // return celebrity;
   }
   updateCelebrity(editedCelebrity: CelebrityList): Observable<CelebrityList> {
-    return this._http.put<CelebrityList>(
-      `${this._baseUrl}/celebritites/${editedCelebrity.id}`,
-      editedCelebrity
-    );
-    // const i = this._celebrities.findIndex(
-    //   (celebrity: CelebrityList) => celebrity.id === editedCelebrity.id
-    // );
-    // if (i !== -1) {
-    //   this._celebrities[i] = editedCelebrity;
-    // }
-    // this._celebrity$.next(this._celebrities);
+    return this._http
+      .put<CelebrityList>(
+        `${this._baseUrl}/celebritites/${editedCelebrity.id}`,
+        editedCelebrity
+      )
+      .pipe(tap(() => this.refresh()));
   }
-  deleteCelebrity(id: string): Observable<CelebrityList> {
-    return this._http.delete<CelebrityList>(
-      `${this._baseUrl}/celebrities/${id}`
-    );
-    // const i = this._celebrities.findIndex(
-    //   (movie: CelebrityList) => movie.id == id
-    // );
-    // if (i !== -1) {
-    //   this._celebrities.splice(i, 1);
-    // }
-    // this._celebrity$.next(this._celebrities);
+  deleteCelebrity(id: string): void {
+    this._http
+      .delete<CelebrityList>(`${this._baseUrl}/celebrities/${id}`)
+      .pipe(
+        first(),
+        tap(() => this.refresh())
+      )
+      .subscribe();
   }
   addCelebrity(createdCelebrity: CelebrityList): Observable<CelebrityList> {
-    return this._http.post<CelebrityList>(
-      `${this._baseUrl}/celebrities`,
-      createdCelebrity
-    );
-    // this._numId += 1;
-    // createdCelebrity.id = this._numId.toString();
-    // this._celebrities.push(createdCelebrity);
-    // this._celebrity$.next(this._celebrities);
+    return this._http
+      .post<CelebrityList>(`${this._baseUrl}/celebrities`, createdCelebrity)
+      .pipe(tap(() => this.refresh()));
   }
 }

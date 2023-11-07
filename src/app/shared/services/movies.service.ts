@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import {
   BehaviorSubject,
   Observable,
-  Subject,
   first,
   map,
   of,
@@ -11,11 +10,8 @@ import {
   tap,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import {
-  MovieForm,
-  MovieList,
-  MoviesResponseDto,
-} from '../interfaces/movies.interface';
+import { MovieForm, MovieList } from '../interfaces/movies.interface';
+import { MoviesResponseDto } from '../interfaces/responses.interface';
 export interface MovieFilter {
   title?: string;
   orderBy?: string;
@@ -46,7 +42,7 @@ export class MovieService {
           params,
         });
       }),
-      map((responseMovies) => responseMovies.movies)
+      map((response) => response.movies)
     );
   }
   getFilters() {
