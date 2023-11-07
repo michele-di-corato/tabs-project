@@ -1,16 +1,8 @@
-import { Injectable } from '@angular/core';
-import { CelebrityList } from '../interfaces/celebrities.interface';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  first,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, first, map, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CelebrityList } from '../interfaces/celebrities.interface';
 import { CelebritiesResponseDto } from '../interfaces/responses.interface';
 export interface CelebrityFilter {
   name?: string;
@@ -26,7 +18,10 @@ export class CelebrityService {
   celebrities$: Observable<CelebrityList[]>;
   refresh$ = new BehaviorSubject<boolean>(true);
   currentFilters: CelebrityFilter;
-
+  set filters(value: CelebrityFilter) {
+    this.currentFilters = value;
+    this.refresh();
+  }
   constructor(private readonly _http: HttpClient) {
     this.currentFilters = {
       page: 0,
@@ -36,7 +31,7 @@ export class CelebrityService {
       switchMap(() => {
         const params = this.getFilters();
         return this._http.get<CelebritiesResponseDto>(
-          `${this._baseUrl}/movies`,
+          `${this._baseUrl}/celebrities`,
           {
             params,
           }

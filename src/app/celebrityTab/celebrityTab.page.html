@@ -15,6 +15,7 @@
     </ion-toolbar>
   </ion-header>
   <app-list
+    *ngIf="celebrities.length > 0"
     [list]="celebrities"
     (idToSelect)="goToDetailPage($event)"
     (idToEdit)="goToEditPage($event)"
