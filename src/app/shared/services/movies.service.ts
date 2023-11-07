@@ -6,6 +6,7 @@ import {
   Subject,
   first,
   map,
+  of,
   switchMap,
   tap,
 } from 'rxjs';
@@ -101,5 +102,13 @@ export class MovieService {
       year: createdMovie.year,
       genres: createdMovie.genres,
     };
+  }
+
+  checkIfTitleExists(value: string) {
+    this.filters = {
+      ...this.currentFilters,
+      title: value,
+    };
+    return of(this.movies$);
   }
 }

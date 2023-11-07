@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { MovieService } from 'src/app/shared/services/movies.service';
-import { MovieList } from 'src/app/shared/interfaces/movies.interface';
-import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { defaultIfEmpty } from 'rxjs';
+import { MovieList } from 'src/app/shared/interfaces/movies.interface';
+import { MovieService } from 'src/app/shared/services/movies.service';
+import { TitleValidator } from './titleValidator.component';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create-movie',
@@ -28,16 +28,18 @@ export class MovieCreateTabPage {
         'tt0000001',
         Validators.compose([Validators.required, Validators.maxLength(9)])
       ),
-      title: new FormControl(
-        this.movie?.title,
-        Validators.compose([
+      title: new FormControl('', {
+        validators: [
           Validators.required,
           Validators.minLength(5),
           Validators.maxLength(100),
-        ])
-      ),
+        ],
+        asyncValidators: [TitleValidator.createValidator(this._movieService)],
+        updateOn: 'blur',
+      }),
+
       year: new FormControl(
-        this.movie?.year,
+        '',
         Validators.compose([
           Validators.required,
           Validators.max(2024),
@@ -45,14 +47,14 @@ export class MovieCreateTabPage {
         ])
       ),
       runningTime: new FormControl(
-        this.movie?.runningTime,
+        '',
         Validators.compose([
           Validators.required,
           Validators.min(0),
           Validators.max(900),
         ])
       ),
-      genres: new FormControl(this.movie?.genres),
+      genres: new FormControl(''),
       averageRating: new FormControl(
         0,
         Validators.compose([Validators.max(10), Validators.min(0)])
@@ -66,5 +68,8 @@ export class MovieCreateTabPage {
         .addMovie(this.formMovie?.value)
         .subscribe(() => this._location.back());
     }
+  }
+  get title() {
+    return this.formMovie?.get('title');
   }
 }
