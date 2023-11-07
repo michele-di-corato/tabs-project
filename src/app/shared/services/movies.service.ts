@@ -68,10 +68,9 @@ export class MovieService {
     return this._http.get<MovieList>(`${this._baseUrl}/movies/${id}`);
   }
   updateMovie(editedMovie: MovieList): Observable<MovieList> {
-    return this._http.put<MovieList>(
-      `${this._baseUrl}/movies/${editedMovie.id}`,
-      editedMovie
-    );
+    return this._http
+      .put<MovieList>(`${this._baseUrl}/movies/${editedMovie.id}`, editedMovie)
+      .pipe(tap(() => this.refresh()));
   }
   deleteMovie(id: string): void {
     this._http
@@ -84,7 +83,9 @@ export class MovieService {
   }
   addMovie(createdMovie: MovieForm): Observable<MovieList> {
     const movieDto: MovieList = this.formToDto(createdMovie);
-    return this._http.post<MovieList>(`${this._baseUrl}/movies`, movieDto);
+    return this._http
+      .post<MovieList>(`${this._baseUrl}/movies`, movieDto)
+      .pipe(tap(() => this.refresh()));
   }
 
   // Avere questa funzione mi permette di rimappare i dati del form in un dato passabile al backend
